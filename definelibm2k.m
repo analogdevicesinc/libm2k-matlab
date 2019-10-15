@@ -11,8 +11,8 @@
 function libDef = definelibm2k()
 libDef = clibgen.LibraryDefinition("libm2kData.xml");
 %% OutputFolder and Libraries 
-libDef.OutputFolder = "/tmp/libm2k/bindings/matlab";
-libDef.Libraries = "/usr/local/lib/libm2k.so";
+libDef.OutputFolder = pwd;
+libDef.Libraries = fullfile(pwd,"libm2k","libm2k.so");
 
 %% C++ class |iio_context| with MATLAB name |clib.libm2k.iio_context| 
 % iio_contextDefinition = addClass(libDef, "iio_context", "MATLABName", "clib.libm2k.iio_context", ...

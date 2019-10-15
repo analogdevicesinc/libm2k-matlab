@@ -13,7 +13,7 @@ stages:
 package:osx:
     extends: .os_package
     tags:
-     - osx
+     - linux
      - matlab
     script:
      - git clone --branch matlab-bindings https://github.com/analogdevicesinc/libm2k.git
@@ -24,7 +24,12 @@ package:osx:
      # Collect binaries and headers
      - cd ../../
      - mkdir deps
-     - find libm2k/build -name "*.dylib" -exec cp {} deps/ \;
+     - find libm2k/build -name "*.so" -exec cp {} deps/ \;
      - cp -r libm2k/include/libm2k deps/
+     - rm libm2k
+     - curl -O https://raw.githubusercontent.com/analogdevicesinc/libiio/master/iio.h
+     - mv iio.h deps/
+     - mv deps libm2k
      # Build MATLAB Bindings
-     - /Applications/MATLAB_R2019a.app/bin/matlab -r 'build_pkg' 
+     #- /Applications/MATLAB_R2019a.app/bin/matlab -r 'build_pkg' 
+     - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_pkg' 
