@@ -10,7 +10,7 @@ stages:
         paths:
             - libm2k
 
-package:osx:
+package:linux:
     extends: .os_package
     tags:
      - linux
@@ -31,5 +31,4 @@ package:osx:
      - mv iio.h deps/
      - mv deps libm2k
      # Build MATLAB Bindings
-     #- /Applications/MATLAB_R2019a.app/bin/matlab -r 'build_pkg' 
      - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_pkg' 
