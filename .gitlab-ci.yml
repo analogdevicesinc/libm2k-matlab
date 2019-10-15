@@ -26,7 +26,7 @@ package:osx:
      - mkdir deps
      - find libm2k/build -name "*.so" -exec cp {} deps/ \;
      - cp -r libm2k/include/libm2k deps/
-     - rm libm2k
+     - rm -rf libm2k
      - curl -O https://raw.githubusercontent.com/analogdevicesinc/libiio/master/iio.h
      - mv iio.h deps/
      - mv deps libm2k
