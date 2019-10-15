@@ -1,0 +1,30 @@
+stages:
+  - package
+
+# Templates
+.os_package:
+    stage: package
+    artifacts:
+        when: always
+        name: "$CI_COMMIT_REF_NAME"
+        paths:
+            - libm2k
+
+package:osx:
+    extends: .os_package
+    tags:
+     - osx
+     - matlab
+    script:
+     - git clone --branch matlab-bindings https://github.com/analogdevicesinc/libm2k.git
+     - cd libm2k
+     - mkdir build && cd build
+     - cmake .. -DENABLE_CSHARP=OFF -DENABLE_PYTHON=OFF
+     - make
+     # Collect binaries and headers
+     - cd ../../
+     - mkdir deps
+     - find libm2k/build -name "*.dylib" -exec cp {} deps/ \;
+     - cp -r libm2k/include/libm2k deps/
+     # Build MATLAB Bindings
+     - /Applications/MATLAB_R2019a.app/bin/matlab -r 'build_pkg' 
