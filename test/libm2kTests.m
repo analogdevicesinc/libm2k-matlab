@@ -8,7 +8,7 @@ classdef libm2kTests < matlab.unittest.TestCase
         function addpaths(testCase)
             here = mfilename('fullpath');
             here = strsplit(here,'/');
-            here = fullfile('/',here{1:end-1});
+            here = fullfile('/',here{1:end-2});
             testCase.root = here;
             addpath(genpath(fullfile(here,'libm2k')));
         end
