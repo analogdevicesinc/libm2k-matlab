@@ -32,3 +32,19 @@ package:linux:
      - mv deps libm2k
      # Build MATLAB Bindings
      - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_pkg' 
+
+package:win64:
+    extends: .os_package
+    tags:
+     - win64
+     - matlab
+    script:
+     # Collect binaries and headers
+     - wget https://ci.appveyor.com/api/buildjobs/05v7nygc70sfxwar/artifacts/libm2k-win64.zip
+     - unzip libm2k-win64.zip -d .
+     - cd libm2k-win64/libm2k/
+     - curl -O https://raw.githubusercontent.com/analogdevicesinc/libiio/master/iio.h
+     - cd ../..
+     # Build MATLAB Bindings
+     - cmd /C ""C:\Program Files\MATLAB\R2019a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_pkg_win64""
+     - mv libm2k-win64 libm2k
