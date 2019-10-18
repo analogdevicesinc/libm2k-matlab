@@ -1,3 +1,6 @@
+%{
+This example reads the analog voltage from channel 0 of the analog input
+%}
 %% Setup
 m2k = clib.libm2k.libm2k.devices.m2kOpen();
 

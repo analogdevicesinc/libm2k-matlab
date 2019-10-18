@@ -1,6 +1,23 @@
+%{
+This example assumes the following connections:
+W1 -> 1+
+W2 -> 2+
+GND -> 1-
+GND -> 2-
+
+The application will generate a sine and triangular wave on W1 and W2.
+The signal is fed back into the analog input and the voltage values are
+displayed on the screen
+%}
+
+trigger = false;
+
 %% Setup
 import clib.libm2k.libm2k.*
-m2k = devices.m2kOpen();
+m2k = contexts.m2kOpen();
+if isempty(m2k)
+    error('M2K device not found');
+end
 
 %% Calibrate
 m2k.calibrateADC();
@@ -20,15 +37,17 @@ c1 = analog.ANALOG_IN_CHANNEL.ANALOG_IN_CHANNEL_1;
 ain.setRange(c1,-10,10)
 
 %% Set up analog trigger
-as = analog.M2K_TRIGGER_SOURCE.CHANNEL_1;
-trig.setAnalogSource(as)
-
-tc = analog.M2K_TRIGGER_CONDITION.RISING_EDGE;
-trig.setAnalogCondition(0,tc);
-trig.setAnalogLevel(0,0.5)
-trig.setAnalogDelay(0)
-tc = analog.M2K_TRIGGER_MODE.ANALOG;
-trig.setAnalogMode(1,tc)
+if trigger
+    as = analog.M2K_TRIGGER_SOURCE.CHANNEL_1; %#ok<*UNRCH>
+    trig.setAnalogSource(as)
+    
+    tc = analog.M2K_TRIGGER_CONDITION.RISING_EDGE;
+    trig.setAnalogCondition(0,tc);
+    trig.setAnalogLevel(0,0.5)
+    trig.setAnalogDelay(0)
+    tc = analog.M2K_TRIGGER_MODE.ANALOG;
+    trig.setAnalogMode(1,tc)
+end
 
 %% Set up analog output
 aout.setSampleRate(0, 750000);
@@ -40,11 +59,13 @@ x = linspace(-pi, pi, 1024);
 b1 = sin(x);
 b2 = linspace(-2,2,1024);
 buffer = zeros(1,2048);
-buffer(1:2:end) = b1;
 buffer(2:2:end) = b2;
+buffer(1:2:end) = b1;
 
 aout.setCyclic(true)
-aout.pushInterleaved(buffer,2)
+aout.pushInterleaved(buffer,3)
+% aout.push(0,b1)
+% aout.push(1,b2)
 
 %% Collect analog data
 for k=1:10
@@ -55,6 +76,6 @@ for k=1:10
     pause(0);
 end
 
-devices.deviceCloseAll();
+contexts.contextCloseAll();
 
 clear m2k

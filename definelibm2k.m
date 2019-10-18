@@ -11,8 +11,8 @@
 function libDef = definelibm2k()
 libDef = clibgen.LibraryDefinition("libm2kData.xml");
 %% OutputFolder and Libraries 
-libDef.OutputFolder = pwd;
-libDef.Libraries = fullfile(pwd,"libm2k","libm2k.so");
+libDef.OutputFolder = "/tmp/libm2k-matlab";
+libDef.Libraries = "/usr/local/lib/libm2k.so";
 
 %% C++ class |iio_context| with MATLAB name |clib.libm2k.iio_context| 
 % iio_contextDefinition = addClass(libDef, "iio_context", "MATLABName", "clib.libm2k.iio_context", ...
@@ -26,15 +26,15 @@ libDef.Libraries = fullfile(pwd,"libm2k","libm2k.so");
 % iio_deviceDefinition = addClass(libDef, "iio_device", "MATLABName", "clib.libm2k.iio_device", ...
 %     "Description", "clib.libm2k.iio_device    Representation of C++ class iio_device"); % This description is shown as help to user. Modify it to appropriate description.
 
-%% C++ enumeration |DeviceTypes| with MATLAB name |clib.libm2k.DeviceTypes| 
-addEnumeration(libDef, "DeviceTypes", "int32",...
+%% C++ enumeration |ContextTypes| with MATLAB name |clib.libm2k.ContextTypes| 
+addEnumeration(libDef, "ContextTypes", "int32",...
     [...
-      "DevFMCOMMS",...  % 0
-      "DevM2K",...  % 1
+      "CtxFMCOMMS",...  % 0
+      "CtxM2K",...  % 1
       "Other",...  % 2
     ],...
-    "MATLABName", "clib.libm2k.DeviceTypes", ...
-    "Description", "clib.libm2k.DeviceTypes    Representation of C++ enumeration DeviceTypes"); % This description is shown as help to user. Modify it to appropriate description.
+    "MATLABName", "clib.libm2k.ContextTypes", ...
+    "Description", "clib.libm2k.ContextTypes    Representation of C++ enumeration ContextTypes"); % This description is shown as help to user. Modify it to appropriate description.
 
 %% C++ class |iio_buffer| with MATLAB name |clib.libm2k.iio_buffer| 
 % iio_bufferDefinition = addClass(libDef, "iio_buffer", "MATLABName", "clib.libm2k.iio_buffer", ...
@@ -2058,11 +2058,11 @@ validate(setDigitalDelayDefinition);
 
 %% C++ class method |getCurrentHwSettings| for C++ class |libm2k::analog::M2kHardwareTrigger| 
 % C++ Signature: libm2k::analog::SETTINGS * libm2k::analog::M2kHardwareTrigger::getCurrentHwSettings()
-%getCurrentHwSettingsDefinition = addMethod(M2kHardwareTriggerDefinition, ...
-%    "libm2k::analog::SETTINGS * libm2k::analog::M2kHardwareTrigger::getCurrentHwSettings()", ...
-%    "Description", "clib.libm2k.libm2k.analog.M2kHardwareTrigger.getCurrentHwSettings    Method of C++ class libm2k::analog::M2kHardwareTrigger::getCurrentHwSettings"); % This description is shown as help to user. Modify it to appropriate description.
-%defineOutput(getCurrentHwSettingsDefinition, "RetVal", "clib.libm2k.libm2k.analog.SETTINGS", <SHAPE>);
-%validate(getCurrentHwSettingsDefinition);
+getCurrentHwSettingsDefinition = addMethod(M2kHardwareTriggerDefinition, ...
+   "libm2k::analog::SETTINGS * libm2k::analog::M2kHardwareTrigger::getCurrentHwSettings()", ...
+   "Description", "clib.libm2k.libm2k.analog.M2kHardwareTrigger.getCurrentHwSettings    Method of C++ class libm2k::analog::M2kHardwareTrigger::getCurrentHwSettings"); % This description is shown as help to user. Modify it to appropriate description.
+defineOutput(getCurrentHwSettingsDefinition, "RetVal", "clib.libm2k.libm2k.analog.SETTINGS", 1);
+validate(getCurrentHwSettingsDefinition);
 
 %% C++ class method |setHwTriggerSettings| for C++ class |libm2k::analog::M2kHardwareTrigger| 
 % C++ Signature: void libm2k::analog::M2kHardwareTrigger::setHwTriggerSettings(libm2k::analog::SETTINGS * settings)
@@ -2135,6 +2135,13 @@ initDefinition = addMethod(M2kAnalogInDefinition, ...
     "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.init    Method of C++ class libm2k::analog::M2kAnalogIn::init"); % This description is shown as help to user. Modify it to appropriate description.
 validate(initDefinition);
 
+%% C++ class method |flushBuffer| for C++ class |libm2k::analog::M2kAnalogIn| 
+% C++ Signature: void libm2k::analog::M2kAnalogIn::flushBuffer()
+flushBufferDefinition = addMethod(M2kAnalogInDefinition, ...
+    "void libm2k::analog::M2kAnalogIn::flushBuffer()", ...
+    "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.flushBuffer    Method of C++ class libm2k::analog::M2kAnalogIn::flushBuffer"); % This description is shown as help to user. Modify it to appropriate description.
+validate(flushBufferDefinition);
+
 %% C++ class method |getSamplesInterleaved| for C++ class |libm2k::analog::M2kAnalogIn| 
 % C++ Signature: double const * libm2k::analog::M2kAnalogIn::getSamplesInterleaved(unsigned int nb_samples)
 getSamplesInterleavedDefinition = addMethod(M2kAnalogInDefinition, ...
@@ -2201,19 +2208,19 @@ validate(getVoltageDefinition);
 
 %% C++ class method |getVoltageRawP| for C++ class |libm2k::analog::M2kAnalogIn| 
 % C++ Signature: short const * libm2k::analog::M2kAnalogIn::getVoltageRawP()
-%getVoltageRawPDefinition = addMethod(M2kAnalogInDefinition, ...
-%    "short const * libm2k::analog::M2kAnalogIn::getVoltageRawP()", ...
-%    "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getVoltageRawP    Method of C++ class libm2k::analog::M2kAnalogIn::getVoltageRawP"); % This description is shown as help to user. Modify it to appropriate description.
-%defineOutput(getVoltageRawPDefinition, "RetVal", "int16", <SHAPE>);
-%validate(getVoltageRawPDefinition);
+getVoltageRawPDefinition = addMethod(M2kAnalogInDefinition, ...
+   "short const * libm2k::analog::M2kAnalogIn::getVoltageRawP()", ...
+   "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getVoltageRawP    Method of C++ class libm2k::analog::M2kAnalogIn::getVoltageRawP"); % This description is shown as help to user. Modify it to appropriate description.
+defineOutput(getVoltageRawPDefinition, "RetVal", "int16", 1);
+validate(getVoltageRawPDefinition);
 
 %% C++ class method |getVoltageP| for C++ class |libm2k::analog::M2kAnalogIn| 
 % C++ Signature: double const * libm2k::analog::M2kAnalogIn::getVoltageP()
-%getVoltagePDefinition = addMethod(M2kAnalogInDefinition, ...
-%    "double const * libm2k::analog::M2kAnalogIn::getVoltageP()", ...
-%    "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getVoltageP    Method of C++ class libm2k::analog::M2kAnalogIn::getVoltageP"); % This description is shown as help to user. Modify it to appropriate description.
-%defineOutput(getVoltagePDefinition, "RetVal", "double", <SHAPE>);
-%validate(getVoltagePDefinition);
+getVoltagePDefinition = addMethod(M2kAnalogInDefinition, ...
+   "double const * libm2k::analog::M2kAnalogIn::getVoltageP()", ...
+   "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getVoltageP    Method of C++ class libm2k::analog::M2kAnalogIn::getVoltageP"); % This description is shown as help to user. Modify it to appropriate description.
+defineOutput(getVoltagePDefinition, "RetVal", "double", 1);
+validate(getVoltagePDefinition);
 
 %% C++ class method |setVerticalOffset| for C++ class |libm2k::analog::M2kAnalogIn| 
 % C++ Signature: void libm2k::analog::M2kAnalogIn::setVerticalOffset(libm2k::analog::ANALOG_IN_CHANNEL channel,double vertOffset)
@@ -2244,12 +2251,12 @@ validate(getScalingFactorDefinition);
 
 %% C++ class method |setRange| for C++ class |libm2k::analog::M2kAnalogIn| 
 % C++ Signature: void libm2k::analog::M2kAnalogIn::setRange(libm2k::analog::ANALOG_IN_CHANNEL channel,libm2k::analog::M2K_RANGE range)
-% setRangeDefinition = addMethod(M2kAnalogInDefinition, ...
-%     "void libm2k::analog::M2kAnalogIn::setRange(libm2k::analog::ANALOG_IN_CHANNEL channel,libm2k::analog::M2K_RANGE range)", ...
-%     "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.setRange    Method of C++ class libm2k::analog::M2kAnalogIn::setRange"); % This description is shown as help to user. Modify it to appropriate description.
-% defineArgument(setRangeDefinition, "channel", "clib.libm2k.libm2k.analog.ANALOG_IN_CHANNEL");
-% defineArgument(setRangeDefinition, "range", "clib.libm2k.libm2k.analog.M2K_RANGE");
-% validate(setRangeDefinition);
+setRangeDefinition = addMethod(M2kAnalogInDefinition, ...
+    "void libm2k::analog::M2kAnalogIn::setRange(libm2k::analog::ANALOG_IN_CHANNEL channel,libm2k::analog::M2K_RANGE range)", ...
+    "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.setRange    Method of C++ class libm2k::analog::M2kAnalogIn::setRange"); % This description is shown as help to user. Modify it to appropriate description.
+defineArgument(setRangeDefinition, "channel", "clib.libm2k.libm2k.analog.ANALOG_IN_CHANNEL");
+defineArgument(setRangeDefinition, "range", "clib.libm2k.libm2k.analog.M2K_RANGE");
+validate(setRangeDefinition);
 
 %% C++ class method |setRange| for C++ class |libm2k::analog::M2kAnalogIn| 
 % C++ Signature: void libm2k::analog::M2kAnalogIn::setRange(libm2k::analog::ANALOG_IN_CHANNEL channel,double min,double max)
@@ -2717,12 +2724,12 @@ defineOutput(isChannelEnabledDefinition, "RetVal", "logical");
 validate(isChannelEnabledDefinition);
 
 %% C++ class |libm2k::analog::GenericAnalogIn| with MATLAB name |clib.libm2k.libm2k.analog.GenericAnalogIn| 
-GenericAnalogInDefinition = addClass(libDef, "libm2k::analog::GenericAnalogIn", "MATLABName", "clib.libm2k.libm2k.analog.GenericAnalogIn", ...
-    "Description", "clib.libm2k.libm2k.analog.GenericAnalogIn    Representation of C++ class libm2k::analog::GenericAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
+% GenericAnalogInDefinition = addClass(libDef, "libm2k::analog::GenericAnalogIn", "MATLABName", "clib.libm2k.libm2k.analog.GenericAnalogIn", ...
+%     "Description", "clib.libm2k.libm2k.analog.GenericAnalogIn    Representation of C++ class libm2k::analog::GenericAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
 
 %% C++ class |libm2k::analog::GenericAnalogOut| with MATLAB name |clib.libm2k.libm2k.analog.GenericAnalogOut| 
-GenericAnalogOutDefinition = addClass(libDef, "libm2k::analog::GenericAnalogOut", "MATLABName", "clib.libm2k.libm2k.analog.GenericAnalogOut", ...
-    "Description", "clib.libm2k.libm2k.analog.GenericAnalogOut    Representation of C++ class libm2k::analog::GenericAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
+% GenericAnalogOutDefinition = addClass(libDef, "libm2k::analog::GenericAnalogOut", "MATLABName", "clib.libm2k.libm2k.analog.GenericAnalogOut", ...
+%     "Description", "clib.libm2k.libm2k.analog.GenericAnalogOut    Representation of C++ class libm2k::analog::GenericAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
 
 %% C++ class |libm2k::analog::iio_context| with MATLAB name |clib.libm2k.libm2k.analog.iio_context| 
 % iio_contextDefinition = addClass(libDef, "libm2k::analog::iio_context", "MATLABName", "clib.libm2k.libm2k.analog.iio_context", ...
@@ -3274,514 +3281,556 @@ defineArgument(enableChannelDefinition, "index", "uint32");
 defineArgument(enableChannelDefinition, "enable", "logical");
 validate(enableChannelDefinition);
 
-%% C++ class |libm2k::devices::M2k| with MATLAB name |clib.libm2k.libm2k.devices.M2k| 
-M2kDefinition = addClass(libDef, "libm2k::devices::M2k", "MATLABName", "clib.libm2k.libm2k.devices.M2k", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k    Representation of C++ class libm2k::devices::M2k"); % This description is shown as help to user. Modify it to appropriate description.
+%% C++ class |libm2k::contexts::M2k| with MATLAB name |clib.libm2k.libm2k.contexts.M2k| 
+M2kDefinition = addClass(libDef, "libm2k::contexts::M2k", "MATLABName", "clib.libm2k.libm2k.contexts.M2k", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k    Representation of C++ class libm2k::contexts::M2k"); % This description is shown as help to user. Modify it to appropriate description.
 
-%% C++ class constructor for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::devices::M2k::M2k(std::string uri,iio_context * ctx,std::string name,bool sync)
+%% C++ class constructor for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::contexts::M2k::M2k(std::string uri,iio_context * ctx,std::string name,bool sync)
 %M2kConstructor1Definition = addConstructor(M2kDefinition, ...
-%    "libm2k::devices::M2k::M2k(std::string uri,iio_context * ctx,std::string name,bool sync)", ...
-%    "Description", "clib.libm2k.libm2k.devices.M2k    Constructor of C++ class libm2k::devices::M2k"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::contexts::M2k::M2k(std::string uri,iio_context * ctx,std::string name,bool sync)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.M2k    Constructor of C++ class libm2k::contexts::M2k"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(M2kConstructor1Definition, "uri", "string");
 %defineArgument(M2kConstructor1Definition, "ctx", "clib.libm2k.iio_context", "input", <SHAPE>);
 %defineArgument(M2kConstructor1Definition, "name", "string");
 %defineArgument(M2kConstructor1Definition, "sync", "logical");
 %validate(M2kConstructor1Definition);
 
-%% C++ class method |init| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::init()
+%% C++ class method |init| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::init()
 initDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::init()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.init    Method of C++ class libm2k::devices::M2k::init"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::init()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.init    Method of C++ class libm2k::contexts::M2k::init"); % This description is shown as help to user. Modify it to appropriate description.
 validate(initDefinition);
 
-%% C++ class method |deinitialize| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::deinitialize()
+%% C++ class method |deinitialize| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::deinitialize()
 deinitializeDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::deinitialize()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.deinitialize    Method of C++ class libm2k::devices::M2k::deinitialize"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::deinitialize()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.deinitialize    Method of C++ class libm2k::contexts::M2k::deinitialize"); % This description is shown as help to user. Modify it to appropriate description.
 validate(deinitializeDefinition);
 
-%% C++ class method |scanAllAnalogIn| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::scanAllAnalogIn()
+%% C++ class method |scanAllAnalogIn| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::scanAllAnalogIn()
 scanAllAnalogInDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::scanAllAnalogIn()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.scanAllAnalogIn    Method of C++ class libm2k::devices::M2k::scanAllAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::scanAllAnalogIn()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.scanAllAnalogIn    Method of C++ class libm2k::contexts::M2k::scanAllAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllAnalogInDefinition);
 
-%% C++ class method |scanAllAnalogOut| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::scanAllAnalogOut()
+%% C++ class method |scanAllAnalogOut| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::scanAllAnalogOut()
 scanAllAnalogOutDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::scanAllAnalogOut()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.scanAllAnalogOut    Method of C++ class libm2k::devices::M2k::scanAllAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::scanAllAnalogOut()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.scanAllAnalogOut    Method of C++ class libm2k::contexts::M2k::scanAllAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllAnalogOutDefinition);
 
-%% C++ class method |scanAllPowerSupply| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::scanAllPowerSupply()
+%% C++ class method |scanAllPowerSupply| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::scanAllPowerSupply()
 scanAllPowerSupplyDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::scanAllPowerSupply()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.scanAllPowerSupply    Method of C++ class libm2k::devices::M2k::scanAllPowerSupply"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::scanAllPowerSupply()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.scanAllPowerSupply    Method of C++ class libm2k::contexts::M2k::scanAllPowerSupply"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllPowerSupplyDefinition);
 
-%% C++ class method |scanAllDigital| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::scanAllDigital()
+%% C++ class method |scanAllDigital| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::scanAllDigital()
 scanAllDigitalDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::scanAllDigital()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.scanAllDigital    Method of C++ class libm2k::devices::M2k::scanAllDigital"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::scanAllDigital()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.scanAllDigital    Method of C++ class libm2k::contexts::M2k::scanAllDigital"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllDigitalDefinition);
 
-%% C++ class method |calibrate| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::calibrate()
+%% C++ class method |calibrate| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::calibrate()
 calibrateDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::calibrate()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.calibrate    Method of C++ class libm2k::devices::M2k::calibrate"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::calibrate()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.calibrate    Method of C++ class libm2k::contexts::M2k::calibrate"); % This description is shown as help to user. Modify it to appropriate description.
 validate(calibrateDefinition);
 
-%% C++ class method |calibrateADC| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: bool libm2k::devices::M2k::calibrateADC()
+%% C++ class method |calibrateADC| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: bool libm2k::contexts::M2k::calibrateADC()
 calibrateADCDefinition = addMethod(M2kDefinition, ...
-    "bool libm2k::devices::M2k::calibrateADC()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.calibrateADC    Method of C++ class libm2k::devices::M2k::calibrateADC"); % This description is shown as help to user. Modify it to appropriate description.
+    "bool libm2k::contexts::M2k::calibrateADC()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.calibrateADC    Method of C++ class libm2k::contexts::M2k::calibrateADC"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(calibrateADCDefinition, "RetVal", "logical");
 validate(calibrateADCDefinition);
 
-%% C++ class method |calibrateDAC| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: bool libm2k::devices::M2k::calibrateDAC()
+%% C++ class method |calibrateDAC| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: bool libm2k::contexts::M2k::calibrateDAC()
 calibrateDACDefinition = addMethod(M2kDefinition, ...
-    "bool libm2k::devices::M2k::calibrateDAC()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.calibrateDAC    Method of C++ class libm2k::devices::M2k::calibrateDAC"); % This description is shown as help to user. Modify it to appropriate description.
+    "bool libm2k::contexts::M2k::calibrateDAC()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.calibrateDAC    Method of C++ class libm2k::contexts::M2k::calibrateDAC"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(calibrateDACDefinition, "RetVal", "logical");
 validate(calibrateDACDefinition);
 
-%% C++ class method |resetCalibration| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: bool libm2k::devices::M2k::resetCalibration()
+%% C++ class method |resetCalibration| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: bool libm2k::contexts::M2k::resetCalibration()
 resetCalibrationDefinition = addMethod(M2kDefinition, ...
-    "bool libm2k::devices::M2k::resetCalibration()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.resetCalibration    Method of C++ class libm2k::devices::M2k::resetCalibration"); % This description is shown as help to user. Modify it to appropriate description.
+    "bool libm2k::contexts::M2k::resetCalibration()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.resetCalibration    Method of C++ class libm2k::contexts::M2k::resetCalibration"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(resetCalibrationDefinition, "RetVal", "logical");
 validate(resetCalibrationDefinition);
 
-%% C++ class method |getDigital| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::digital::M2kDigital * libm2k::devices::M2k::getDigital()
+%% C++ class method |getDigital| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::digital::M2kDigital * libm2k::contexts::M2k::getDigital()
 getDigitalDefinition = addMethod(M2kDefinition, ...
-   "libm2k::digital::M2kDigital * libm2k::devices::M2k::getDigital()", ...
-   "Description", "clib.libm2k.libm2k.devices.M2k.getDigital    Method of C++ class libm2k::devices::M2k::getDigital"); % This description is shown as help to user. Modify it to appropriate description.
+   "libm2k::digital::M2kDigital * libm2k::contexts::M2k::getDigital()", ...
+   "Description", "clib.libm2k.libm2k.contexts.M2k.getDigital    Method of C++ class libm2k::contexts::M2k::getDigital"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getDigitalDefinition, "RetVal", "clib.libm2k.libm2k.digital.M2kDigital", 1);
 validate(getDigitalDefinition);
 
-%% C++ class method |getPowerSupply| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::analog::M2kPowerSupply * libm2k::devices::M2k::getPowerSupply()
+%% C++ class method |getPowerSupply| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::analog::M2kPowerSupply * libm2k::contexts::M2k::getPowerSupply()
 getPowerSupplyDefinition = addMethod(M2kDefinition, ...
-   "libm2k::analog::M2kPowerSupply * libm2k::devices::M2k::getPowerSupply()", ...
-   "Description", "clib.libm2k.libm2k.devices.M2k.getPowerSupply    Method of C++ class libm2k::devices::M2k::getPowerSupply"); % This description is shown as help to user. Modify it to appropriate description.
+   "libm2k::analog::M2kPowerSupply * libm2k::contexts::M2k::getPowerSupply()", ...
+   "Description", "clib.libm2k.libm2k.contexts.M2k.getPowerSupply    Method of C++ class libm2k::contexts::M2k::getPowerSupply"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getPowerSupplyDefinition, "RetVal", "clib.libm2k.libm2k.analog.M2kPowerSupply", 1);
 validate(getPowerSupplyDefinition);
 
-%% C++ class method |getAnalogIn| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::analog::M2kAnalogIn * libm2k::devices::M2k::getAnalogIn()
+%% C++ class method |getAnalogIn| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::analog::M2kAnalogIn * libm2k::contexts::M2k::getAnalogIn()
 getAnalogInDefinition = addMethod(M2kDefinition, ...
-   "libm2k::analog::M2kAnalogIn * libm2k::devices::M2k::getAnalogIn()", ...
-   "Description", "clib.libm2k.libm2k.devices.M2k.getAnalogIn    Method of C++ class libm2k::devices::M2k::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
+   "libm2k::analog::M2kAnalogIn * libm2k::contexts::M2k::getAnalogIn()", ...
+   "Description", "clib.libm2k.libm2k.contexts.M2k.getAnalogIn    Method of C++ class libm2k::contexts::M2k::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getAnalogInDefinition, "RetVal", "clib.libm2k.libm2k.analog.M2kAnalogIn", 1);
 validate(getAnalogInDefinition);
 
-%% C++ class method |getAnalogIn| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::analog::M2kAnalogIn * libm2k::devices::M2k::getAnalogIn(std::string dev_name)
-getAnalogInDefinition = addMethod(M2kDefinition, ...
-   "libm2k::analog::M2kAnalogIn * libm2k::devices::M2k::getAnalogIn(std::string dev_name)", ...
-   "Description", "clib.libm2k.libm2k.devices.M2k.getAnalogIn    Method of C++ class libm2k::devices::M2k::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
-defineArgument(getAnalogInDefinition, "dev_name", "string");
-defineOutput(getAnalogInDefinition, "RetVal", "clib.libm2k.libm2k.analog.M2kAnalogIn", 1);
-validate(getAnalogInDefinition);
+%% C++ class method |getAnalogIn| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::analog::M2kAnalogIn * libm2k::contexts::M2k::getAnalogIn(std::string dev_name)
+%getAnalogInDefinition = addMethod(M2kDefinition, ...
+%    "libm2k::analog::M2kAnalogIn * libm2k::contexts::M2k::getAnalogIn(std::string dev_name)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.M2k.getAnalogIn    Method of C++ class libm2k::contexts::M2k::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(getAnalogInDefinition, "dev_name", "string");
+%defineOutput(getAnalogInDefinition, "RetVal", "clib.libm2k.libm2k.analog.M2kAnalogIn", <SHAPE>);
+%validate(getAnalogInDefinition);
 
-%% C++ class method |getAnalogOut| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::analog::M2kAnalogOut * libm2k::devices::M2k::getAnalogOut()
+%% C++ class method |getAnalogOut| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::analog::M2kAnalogOut * libm2k::contexts::M2k::getAnalogOut()
 getAnalogOutDefinition = addMethod(M2kDefinition, ...
-   "libm2k::analog::M2kAnalogOut * libm2k::devices::M2k::getAnalogOut()", ...
-   "Description", "clib.libm2k.libm2k.devices.M2k.getAnalogOut    Method of C++ class libm2k::devices::M2k::getAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
+   "libm2k::analog::M2kAnalogOut * libm2k::contexts::M2k::getAnalogOut()", ...
+   "Description", "clib.libm2k.libm2k.contexts.M2k.getAnalogOut    Method of C++ class libm2k::contexts::M2k::getAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getAnalogOutDefinition, "RetVal", "clib.libm2k.libm2k.analog.M2kAnalogOut", 1);
 validate(getAnalogOutDefinition);
 
-%% C++ class method |getDacBCalibrationOffset| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: int libm2k::devices::M2k::getDacBCalibrationOffset()
+%% C++ class method |getDacBCalibrationOffset| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: int libm2k::contexts::M2k::getDacBCalibrationOffset()
 getDacBCalibrationOffsetDefinition = addMethod(M2kDefinition, ...
-    "int libm2k::devices::M2k::getDacBCalibrationOffset()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getDacBCalibrationOffset    Method of C++ class libm2k::devices::M2k::getDacBCalibrationOffset"); % This description is shown as help to user. Modify it to appropriate description.
+    "int libm2k::contexts::M2k::getDacBCalibrationOffset()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getDacBCalibrationOffset    Method of C++ class libm2k::contexts::M2k::getDacBCalibrationOffset"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getDacBCalibrationOffsetDefinition, "RetVal", "int32");
 validate(getDacBCalibrationOffsetDefinition);
 
-%% C++ class method |getDacACalibrationOffset| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: int libm2k::devices::M2k::getDacACalibrationOffset()
+%% C++ class method |getDacACalibrationOffset| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: int libm2k::contexts::M2k::getDacACalibrationOffset()
 getDacACalibrationOffsetDefinition = addMethod(M2kDefinition, ...
-    "int libm2k::devices::M2k::getDacACalibrationOffset()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getDacACalibrationOffset    Method of C++ class libm2k::devices::M2k::getDacACalibrationOffset"); % This description is shown as help to user. Modify it to appropriate description.
+    "int libm2k::contexts::M2k::getDacACalibrationOffset()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getDacACalibrationOffset    Method of C++ class libm2k::contexts::M2k::getDacACalibrationOffset"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getDacACalibrationOffsetDefinition, "RetVal", "int32");
 validate(getDacACalibrationOffsetDefinition);
 
-%% C++ class method |getDacBCalibrationGain| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: double libm2k::devices::M2k::getDacBCalibrationGain()
+%% C++ class method |getDacBCalibrationGain| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: double libm2k::contexts::M2k::getDacBCalibrationGain()
 getDacBCalibrationGainDefinition = addMethod(M2kDefinition, ...
-    "double libm2k::devices::M2k::getDacBCalibrationGain()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getDacBCalibrationGain    Method of C++ class libm2k::devices::M2k::getDacBCalibrationGain"); % This description is shown as help to user. Modify it to appropriate description.
+    "double libm2k::contexts::M2k::getDacBCalibrationGain()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getDacBCalibrationGain    Method of C++ class libm2k::contexts::M2k::getDacBCalibrationGain"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getDacBCalibrationGainDefinition, "RetVal", "double");
 validate(getDacBCalibrationGainDefinition);
 
-%% C++ class method |getDacACalibrationGain| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: double libm2k::devices::M2k::getDacACalibrationGain()
+%% C++ class method |getDacACalibrationGain| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: double libm2k::contexts::M2k::getDacACalibrationGain()
 getDacACalibrationGainDefinition = addMethod(M2kDefinition, ...
-    "double libm2k::devices::M2k::getDacACalibrationGain()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getDacACalibrationGain    Method of C++ class libm2k::devices::M2k::getDacACalibrationGain"); % This description is shown as help to user. Modify it to appropriate description.
+    "double libm2k::contexts::M2k::getDacACalibrationGain()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getDacACalibrationGain    Method of C++ class libm2k::contexts::M2k::getDacACalibrationGain"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getDacACalibrationGainDefinition, "RetVal", "double");
 validate(getDacACalibrationGainDefinition);
 
-%% C++ class method |getAdcCalibrationOffset| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: int libm2k::devices::M2k::getAdcCalibrationOffset(unsigned int chn)
+%% C++ class method |getAdcCalibrationOffset| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: int libm2k::contexts::M2k::getAdcCalibrationOffset(unsigned int chn)
 getAdcCalibrationOffsetDefinition = addMethod(M2kDefinition, ...
-    "int libm2k::devices::M2k::getAdcCalibrationOffset(unsigned int chn)", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getAdcCalibrationOffset    Method of C++ class libm2k::devices::M2k::getAdcCalibrationOffset"); % This description is shown as help to user. Modify it to appropriate description.
+    "int libm2k::contexts::M2k::getAdcCalibrationOffset(unsigned int chn)", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getAdcCalibrationOffset    Method of C++ class libm2k::contexts::M2k::getAdcCalibrationOffset"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getAdcCalibrationOffsetDefinition, "chn", "uint32");
 defineOutput(getAdcCalibrationOffsetDefinition, "RetVal", "int32");
 validate(getAdcCalibrationOffsetDefinition);
 
-%% C++ class method |getAdcCalibrationGain| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: double libm2k::devices::M2k::getAdcCalibrationGain(unsigned int chn)
+%% C++ class method |getAdcCalibrationGain| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: double libm2k::contexts::M2k::getAdcCalibrationGain(unsigned int chn)
 getAdcCalibrationGainDefinition = addMethod(M2kDefinition, ...
-    "double libm2k::devices::M2k::getAdcCalibrationGain(unsigned int chn)", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getAdcCalibrationGain    Method of C++ class libm2k::devices::M2k::getAdcCalibrationGain"); % This description is shown as help to user. Modify it to appropriate description.
+    "double libm2k::contexts::M2k::getAdcCalibrationGain(unsigned int chn)", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getAdcCalibrationGain    Method of C++ class libm2k::contexts::M2k::getAdcCalibrationGain"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getAdcCalibrationGainDefinition, "chn", "uint32");
 defineOutput(getAdcCalibrationGainDefinition, "RetVal", "double");
 validate(getAdcCalibrationGainDefinition);
 
-%% C++ class method |setTimeout| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::setTimeout(unsigned int timeout)
+%% C++ class method |setTimeout| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::setTimeout(unsigned int timeout)
 setTimeoutDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::setTimeout(unsigned int timeout)", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.setTimeout    Method of C++ class libm2k::devices::M2k::setTimeout"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::setTimeout(unsigned int timeout)", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.setTimeout    Method of C++ class libm2k::contexts::M2k::setTimeout"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(setTimeoutDefinition, "timeout", "uint32");
 validate(setTimeoutDefinition);
 
-%% C++ class method |setLed| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: void libm2k::devices::M2k::setLed(bool on)
+%% C++ class method |setLed| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: void libm2k::contexts::M2k::setLed(bool on)
 setLedDefinition = addMethod(M2kDefinition, ...
-    "void libm2k::devices::M2k::setLed(bool on)", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.setLed    Method of C++ class libm2k::devices::M2k::setLed"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::M2k::setLed(bool on)", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.setLed    Method of C++ class libm2k::contexts::M2k::setLed"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(setLedDefinition, "on", "logical");
 validate(setLedDefinition);
 
-%% C++ class method |getLed| for C++ class |libm2k::devices::M2k| 
-% C++ Signature: bool libm2k::devices::M2k::getLed()
+%% C++ class method |getLed| for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: bool libm2k::contexts::M2k::getLed()
 getLedDefinition = addMethod(M2kDefinition, ...
-    "bool libm2k::devices::M2k::getLed()", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k.getLed    Method of C++ class libm2k::devices::M2k::getLed"); % This description is shown as help to user. Modify it to appropriate description.
+    "bool libm2k::contexts::M2k::getLed()", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k.getLed    Method of C++ class libm2k::contexts::M2k::getLed"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getLedDefinition, "RetVal", "logical");
 validate(getLedDefinition);
 
-%% C++ class constructor for C++ class |libm2k::devices::M2k| 
-% C++ Signature: libm2k::devices::M2k::M2k(libm2k::devices::M2k const & input1)
+%% C++ class constructor for C++ class |libm2k::contexts::M2k| 
+% C++ Signature: libm2k::contexts::M2k::M2k(libm2k::contexts::M2k const & input1)
 M2kConstructor2Definition = addConstructor(M2kDefinition, ...
-    "libm2k::devices::M2k::M2k(libm2k::devices::M2k const & input1)", ...
-    "Description", "clib.libm2k.libm2k.devices.M2k    Constructor of C++ class libm2k::devices::M2k"); % This description is shown as help to user. Modify it to appropriate description.
-defineArgument(M2kConstructor2Definition, "input1", "clib.libm2k.libm2k.devices.M2k", "input");
+    "libm2k::contexts::M2k::M2k(libm2k::contexts::M2k const & input1)", ...
+    "Description", "clib.libm2k.libm2k.contexts.M2k    Constructor of C++ class libm2k::contexts::M2k"); % This description is shown as help to user. Modify it to appropriate description.
+defineArgument(M2kConstructor2Definition, "input1", "clib.libm2k.libm2k.contexts.M2k", "input");
 validate(M2kConstructor2Definition);
 
-%% C++ class |libm2k::devices::Context| with MATLAB name |clib.libm2k.libm2k.devices.Context| 
-ContextDefinition = addClass(libDef, "libm2k::devices::Context", "MATLABName", "clib.libm2k.libm2k.devices.Context", ...
-    "Description", "clib.libm2k.libm2k.devices.Context    Representation of C++ class libm2k::devices::Context"); % This description is shown as help to user. Modify it to appropriate description.
+%% C++ class |libm2k::contexts::Context| with MATLAB name |clib.libm2k.libm2k.contexts.Context| 
+ContextDefinition = addClass(libDef, "libm2k::contexts::Context", "MATLABName", "clib.libm2k.libm2k.contexts.Context", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context    Representation of C++ class libm2k::contexts::Context"); % This description is shown as help to user. Modify it to appropriate description.
 
-%% C++ class constructor for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::devices::Context::Context(std::string uri,iio_context * input1,std::string name,bool sync)
+%% C++ class constructor for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::contexts::Context::Context(std::string uri,iio_context * input1,std::string name,bool sync)
 %ContextConstructor1Definition = addConstructor(ContextDefinition, ...
-%    "libm2k::devices::Context::Context(std::string uri,iio_context * input1,std::string name,bool sync)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context    Constructor of C++ class libm2k::devices::Context"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::contexts::Context::Context(std::string uri,iio_context * input1,std::string name,bool sync)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context    Constructor of C++ class libm2k::contexts::Context"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(ContextConstructor1Definition, "uri", "string");
 %defineArgument(ContextConstructor1Definition, "input2", "clib.libm2k.iio_context", "input", <SHAPE>);
 %defineArgument(ContextConstructor1Definition, "name", "string");
 %defineArgument(ContextConstructor1Definition, "sync", "logical");
 %validate(ContextConstructor1Definition);
 
-%% C++ class method |init| for C++ class |libm2k::devices::Context| 
-% C++ Signature: void libm2k::devices::Context::init()
+%% C++ class method |init| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: void libm2k::contexts::Context::init()
 initDefinition = addMethod(ContextDefinition, ...
-    "void libm2k::devices::Context::init()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.init    Method of C++ class libm2k::devices::Context::init"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::Context::init()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.init    Method of C++ class libm2k::contexts::Context::init"); % This description is shown as help to user. Modify it to appropriate description.
 validate(initDefinition);
 
-%% C++ class method |deinitialize| for C++ class |libm2k::devices::Context| 
-% C++ Signature: void libm2k::devices::Context::deinitialize()
+%% C++ class method |deinitialize| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: void libm2k::contexts::Context::deinitialize()
 deinitializeDefinition = addMethod(ContextDefinition, ...
-    "void libm2k::devices::Context::deinitialize()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.deinitialize    Method of C++ class libm2k::devices::Context::deinitialize"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::Context::deinitialize()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.deinitialize    Method of C++ class libm2k::contexts::Context::deinitialize"); % This description is shown as help to user. Modify it to appropriate description.
 validate(deinitializeDefinition);
 
-%% C++ class method |scanAllPowerSupply| for C++ class |libm2k::devices::Context| 
-% C++ Signature: void libm2k::devices::Context::scanAllPowerSupply()
+%% C++ class method |scanAllPowerSupply| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: void libm2k::contexts::Context::scanAllPowerSupply()
 scanAllPowerSupplyDefinition = addMethod(ContextDefinition, ...
-    "void libm2k::devices::Context::scanAllPowerSupply()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.scanAllPowerSupply    Method of C++ class libm2k::devices::Context::scanAllPowerSupply"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::Context::scanAllPowerSupply()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.scanAllPowerSupply    Method of C++ class libm2k::contexts::Context::scanAllPowerSupply"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllPowerSupplyDefinition);
 
-%% C++ class method |scanAllDigital| for C++ class |libm2k::devices::Context| 
-% C++ Signature: void libm2k::devices::Context::scanAllDigital()
+%% C++ class method |scanAllDigital| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: void libm2k::contexts::Context::scanAllDigital()
 scanAllDigitalDefinition = addMethod(ContextDefinition, ...
-    "void libm2k::devices::Context::scanAllDigital()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.scanAllDigital    Method of C++ class libm2k::devices::Context::scanAllDigital"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::Context::scanAllDigital()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.scanAllDigital    Method of C++ class libm2k::contexts::Context::scanAllDigital"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllDigitalDefinition);
 
-%% C++ class method |scanAllDMM| for C++ class |libm2k::devices::Context| 
-% C++ Signature: void libm2k::devices::Context::scanAllDMM()
+%% C++ class method |scanAllDMM| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: void libm2k::contexts::Context::scanAllDMM()
 scanAllDMMDefinition = addMethod(ContextDefinition, ...
-    "void libm2k::devices::Context::scanAllDMM()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.scanAllDMM    Method of C++ class libm2k::devices::Context::scanAllDMM"); % This description is shown as help to user. Modify it to appropriate description.
+    "void libm2k::contexts::Context::scanAllDMM()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.scanAllDMM    Method of C++ class libm2k::contexts::Context::scanAllDMM"); % This description is shown as help to user. Modify it to appropriate description.
 validate(scanAllDMMDefinition);
 
-%% C++ class method |getUri| for C++ class |libm2k::devices::Context| 
-% C++ Signature: std::string libm2k::devices::Context::getUri()
+%% C++ class method |getUri| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: std::string libm2k::contexts::Context::getUri()
 getUriDefinition = addMethod(ContextDefinition, ...
-    "std::string libm2k::devices::Context::getUri()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.getUri    Method of C++ class libm2k::devices::Context::getUri"); % This description is shown as help to user. Modify it to appropriate description.
+    "std::string libm2k::contexts::Context::getUri()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.getUri    Method of C++ class libm2k::contexts::Context::getUri"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getUriDefinition, "RetVal", "string");
 validate(getUriDefinition);
 
-%% C++ class method |getAnalogIn| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::analog::GenericAnalogIn * libm2k::devices::Context::getAnalogIn(unsigned int input1)
+%% C++ class method |getAnalogIn| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::analog::GenericAnalogIn * libm2k::contexts::Context::getAnalogIn(unsigned int input1)
 %getAnalogInDefinition = addMethod(ContextDefinition, ...
-%    "libm2k::analog::GenericAnalogIn * libm2k::devices::Context::getAnalogIn(unsigned int input1)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.getAnalogIn    Method of C++ class libm2k::devices::Context::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::analog::GenericAnalogIn * libm2k::contexts::Context::getAnalogIn(unsigned int input1)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.getAnalogIn    Method of C++ class libm2k::contexts::Context::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(getAnalogInDefinition, "input1", "uint32");
 %defineOutput(getAnalogInDefinition, "RetVal", "clib.libm2k.libm2k.analog.GenericAnalogIn", <SHAPE>);
 %validate(getAnalogInDefinition);
 
-%% C++ class method |getAnalogIn| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::analog::GenericAnalogIn * libm2k::devices::Context::getAnalogIn(std::string input1)
+%% C++ class method |getAnalogIn| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::analog::GenericAnalogIn * libm2k::contexts::Context::getAnalogIn(std::string input1)
 %getAnalogInDefinition = addMethod(ContextDefinition, ...
-%    "libm2k::analog::GenericAnalogIn * libm2k::devices::Context::getAnalogIn(std::string input1)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.getAnalogIn    Method of C++ class libm2k::devices::Context::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::analog::GenericAnalogIn * libm2k::contexts::Context::getAnalogIn(std::string input1)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.getAnalogIn    Method of C++ class libm2k::contexts::Context::getAnalogIn"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(getAnalogInDefinition, "input1", "string");
 %defineOutput(getAnalogInDefinition, "RetVal", "clib.libm2k.libm2k.analog.GenericAnalogIn", <SHAPE>);
 %validate(getAnalogInDefinition);
 
-%% C++ class method |getAnalogOut| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::analog::GenericAnalogOut * libm2k::devices::Context::getAnalogOut(unsigned int input1)
+%% C++ class method |getAnalogOut| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::analog::GenericAnalogOut * libm2k::contexts::Context::getAnalogOut(unsigned int input1)
 %getAnalogOutDefinition = addMethod(ContextDefinition, ...
-%    "libm2k::analog::GenericAnalogOut * libm2k::devices::Context::getAnalogOut(unsigned int input1)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.getAnalogOut    Method of C++ class libm2k::devices::Context::getAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::analog::GenericAnalogOut * libm2k::contexts::Context::getAnalogOut(unsigned int input1)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.getAnalogOut    Method of C++ class libm2k::contexts::Context::getAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(getAnalogOutDefinition, "input1", "uint32");
 %defineOutput(getAnalogOutDefinition, "RetVal", "clib.libm2k.libm2k.analog.GenericAnalogOut", <SHAPE>);
 %validate(getAnalogOutDefinition);
 
-%% C++ class method |getAnalogOut| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::analog::GenericAnalogOut * libm2k::devices::Context::getAnalogOut(std::string input1)
+%% C++ class method |getAnalogOut| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::analog::GenericAnalogOut * libm2k::contexts::Context::getAnalogOut(std::string input1)
 %getAnalogOutDefinition = addMethod(ContextDefinition, ...
-%    "libm2k::analog::GenericAnalogOut * libm2k::devices::Context::getAnalogOut(std::string input1)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.getAnalogOut    Method of C++ class libm2k::devices::Context::getAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::analog::GenericAnalogOut * libm2k::contexts::Context::getAnalogOut(std::string input1)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.getAnalogOut    Method of C++ class libm2k::contexts::Context::getAnalogOut"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(getAnalogOutDefinition, "input1", "string");
 %defineOutput(getAnalogOutDefinition, "RetVal", "clib.libm2k.libm2k.analog.GenericAnalogOut", <SHAPE>);
 %validate(getAnalogOutDefinition);
 
-%% C++ class method |getDMM| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::analog::DMM * libm2k::devices::Context::getDMM(unsigned int input1)
+%% C++ class method |getDMM| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::analog::DMM * libm2k::contexts::Context::getDMM(unsigned int input1)
 getDMMDefinition = addMethod(ContextDefinition, ...
-   "libm2k::analog::DMM * libm2k::devices::Context::getDMM(unsigned int input1)", ...
-   "Description", "clib.libm2k.libm2k.devices.Context.getDMM    Method of C++ class libm2k::devices::Context::getDMM"); % This description is shown as help to user. Modify it to appropriate description.
+   "libm2k::analog::DMM * libm2k::contexts::Context::getDMM(unsigned int input1)", ...
+   "Description", "clib.libm2k.libm2k.contexts.Context.getDMM    Method of C++ class libm2k::contexts::Context::getDMM"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getDMMDefinition, "input1", "uint32");
 defineOutput(getDMMDefinition, "RetVal", "clib.libm2k.libm2k.analog.DMM", 1);
 validate(getDMMDefinition);
 
-%% C++ class method |getDMM| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::analog::DMM * libm2k::devices::Context::getDMM(std::string input1)
+%% C++ class method |getDMM| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::analog::DMM * libm2k::contexts::Context::getDMM(std::string input1)
 getDMMDefinition = addMethod(ContextDefinition, ...
-   "libm2k::analog::DMM * libm2k::devices::Context::getDMM(std::string input1)", ...
-   "Description", "clib.libm2k.libm2k.devices.Context.getDMM    Method of C++ class libm2k::devices::Context::getDMM"); % This description is shown as help to user. Modify it to appropriate description.
+   "libm2k::analog::DMM * libm2k::contexts::Context::getDMM(std::string input1)", ...
+   "Description", "clib.libm2k.libm2k.contexts.Context.getDMM    Method of C++ class libm2k::contexts::Context::getDMM"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getDMMDefinition, "input1", "string");
 defineOutput(getDMMDefinition, "RetVal", "clib.libm2k.libm2k.analog.DMM", 1);
 validate(getDMMDefinition);
 
-%% C++ class method |getContextAttributeValue| for C++ class |libm2k::devices::Context| 
-% C++ Signature: std::string libm2k::devices::Context::getContextAttributeValue(std::string attr)
+%% C++ class method |getContextAttributeValue| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: std::string libm2k::contexts::Context::getContextAttributeValue(std::string attr)
 getContextAttributeValueDefinition = addMethod(ContextDefinition, ...
-    "std::string libm2k::devices::Context::getContextAttributeValue(std::string attr)", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.getContextAttributeValue    Method of C++ class libm2k::devices::Context::getContextAttributeValue"); % This description is shown as help to user. Modify it to appropriate description.
+    "std::string libm2k::contexts::Context::getContextAttributeValue(std::string attr)", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.getContextAttributeValue    Method of C++ class libm2k::contexts::Context::getContextAttributeValue"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getContextAttributeValueDefinition, "attr", "string");
 defineOutput(getContextAttributeValueDefinition, "RetVal", "string");
 validate(getContextAttributeValueDefinition);
 
-%% C++ class method |getContextDescription| for C++ class |libm2k::devices::Context| 
-% C++ Signature: std::string libm2k::devices::Context::getContextDescription()
+%% C++ class method |getContextDescription| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: std::string libm2k::contexts::Context::getContextDescription()
 getContextDescriptionDefinition = addMethod(ContextDefinition, ...
-    "std::string libm2k::devices::Context::getContextDescription()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.getContextDescription    Method of C++ class libm2k::devices::Context::getContextDescription"); % This description is shown as help to user. Modify it to appropriate description.
+    "std::string libm2k::contexts::Context::getContextDescription()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.getContextDescription    Method of C++ class libm2k::contexts::Context::getContextDescription"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getContextDescriptionDefinition, "RetVal", "string");
 validate(getContextDescriptionDefinition);
 
-%% C++ class method |getSerialNumber| for C++ class |libm2k::devices::Context| 
-% C++ Signature: std::string libm2k::devices::Context::getSerialNumber()
+%% C++ class method |getSerialNumber| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: std::string libm2k::contexts::Context::getSerialNumber()
 getSerialNumberDefinition = addMethod(ContextDefinition, ...
-    "std::string libm2k::devices::Context::getSerialNumber()", ...
-    "Description", "clib.libm2k.libm2k.devices.Context.getSerialNumber    Method of C++ class libm2k::devices::Context::getSerialNumber"); % This description is shown as help to user. Modify it to appropriate description.
+    "std::string libm2k::contexts::Context::getSerialNumber()", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context.getSerialNumber    Method of C++ class libm2k::contexts::Context::getSerialNumber"); % This description is shown as help to user. Modify it to appropriate description.
 defineOutput(getSerialNumberDefinition, "RetVal", "string");
 validate(getSerialNumberDefinition);
 
-%% C++ class method |toM2k| for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::devices::M2k * libm2k::devices::Context::toM2k()
+%% C++ class method |toM2k| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::Context::toM2k()
 %toM2kDefinition = addMethod(ContextDefinition, ...
-%    "libm2k::devices::M2k * libm2k::devices::Context::toM2k()", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.toM2k    Method of C++ class libm2k::devices::Context::toM2k"); % This description is shown as help to user. Modify it to appropriate description.
-%defineOutput(toM2kDefinition, "RetVal", "clib.libm2k.libm2k.devices.M2k", <SHAPE>);
+%    "libm2k::contexts::M2k * libm2k::contexts::Context::toM2k()", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.toM2k    Method of C++ class libm2k::contexts::Context::toM2k"); % This description is shown as help to user. Modify it to appropriate description.
+%defineOutput(toM2kDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", <SHAPE>);
 %validate(toM2kDefinition);
 
-%% C++ class method |iioChannelHasAttribute| for C++ class |libm2k::devices::Context| 
-% C++ Signature: bool libm2k::devices::Context::iioChannelHasAttribute(iio_channel * chn,std::string const & attr)
+%% C++ class method |iioChannelHasAttribute| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: bool libm2k::contexts::Context::iioChannelHasAttribute(iio_channel * chn,std::string const & attr)
 %iioChannelHasAttributeDefinition = addMethod(ContextDefinition, ...
-%    "bool libm2k::devices::Context::iioChannelHasAttribute(iio_channel * chn,std::string const & attr)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.iioChannelHasAttribute    Method of C++ class libm2k::devices::Context::iioChannelHasAttribute"); % This description is shown as help to user. Modify it to appropriate description.
+%    "bool libm2k::contexts::Context::iioChannelHasAttribute(iio_channel * chn,std::string const & attr)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.iioChannelHasAttribute    Method of C++ class libm2k::contexts::Context::iioChannelHasAttribute"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(iioChannelHasAttributeDefinition, "chn", "clib.libm2k.iio_channel", "input", <SHAPE>);
 %defineArgument(iioChannelHasAttributeDefinition, "attr", "string", "input");
 %defineOutput(iioChannelHasAttributeDefinition, "RetVal", "logical");
 %validate(iioChannelHasAttributeDefinition);
 
-%% C++ class method |iioDevHasAttribute| for C++ class |libm2k::devices::Context| 
-% C++ Signature: bool libm2k::devices::Context::iioDevHasAttribute(iio_device * dev,std::string const & attr)
+%% C++ class method |iioDevHasAttribute| for C++ class |libm2k::contexts::Context| 
+% C++ Signature: bool libm2k::contexts::Context::iioDevHasAttribute(iio_device * dev,std::string const & attr)
 %iioDevHasAttributeDefinition = addMethod(ContextDefinition, ...
-%    "bool libm2k::devices::Context::iioDevHasAttribute(iio_device * dev,std::string const & attr)", ...
-%    "Description", "clib.libm2k.libm2k.devices.Context.iioDevHasAttribute    Method of C++ class libm2k::devices::Context::iioDevHasAttribute"); % This description is shown as help to user. Modify it to appropriate description.
+%    "bool libm2k::contexts::Context::iioDevHasAttribute(iio_device * dev,std::string const & attr)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.Context.iioDevHasAttribute    Method of C++ class libm2k::contexts::Context::iioDevHasAttribute"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(iioDevHasAttributeDefinition, "dev", "clib.libm2k.iio_device", "input", <SHAPE>);
 %defineArgument(iioDevHasAttributeDefinition, "attr", "string", "input");
 %defineOutput(iioDevHasAttributeDefinition, "RetVal", "logical");
 %validate(iioDevHasAttributeDefinition);
 
-%% C++ class constructor for C++ class |libm2k::devices::Context| 
-% C++ Signature: libm2k::devices::Context::Context(libm2k::devices::Context const & input1)
+%% C++ class constructor for C++ class |libm2k::contexts::Context| 
+% C++ Signature: libm2k::contexts::Context::Context(libm2k::contexts::Context const & input1)
 ContextConstructor2Definition = addConstructor(ContextDefinition, ...
-    "libm2k::devices::Context::Context(libm2k::devices::Context const & input1)", ...
-    "Description", "clib.libm2k.libm2k.devices.Context    Constructor of C++ class libm2k::devices::Context"); % This description is shown as help to user. Modify it to appropriate description.
-defineArgument(ContextConstructor2Definition, "input1", "clib.libm2k.libm2k.devices.Context", "input");
+    "libm2k::contexts::Context::Context(libm2k::contexts::Context const & input1)", ...
+    "Description", "clib.libm2k.libm2k.contexts.Context    Constructor of C++ class libm2k::contexts::Context"); % This description is shown as help to user. Modify it to appropriate description.
+defineArgument(ContextConstructor2Definition, "input1", "clib.libm2k.libm2k.contexts.Context", "input");
 validate(ContextConstructor2Definition);
 
-%% C++ class |libm2k::devices::ContextBuilder| with MATLAB name |clib.libm2k.libm2k.devices.ContextBuilder| 
-ContextBuilderDefinition = addClass(libDef, "libm2k::devices::ContextBuilder", "MATLABName", "clib.libm2k.libm2k.devices.ContextBuilder", ...
-    "Description", "clib.libm2k.libm2k.devices.ContextBuilder    Representation of C++ class libm2k::devices::ContextBuilder"); % This description is shown as help to user. Modify it to appropriate description.
+%% C++ class |libm2k::contexts::ContextBuilder| with MATLAB name |clib.libm2k.libm2k.contexts.ContextBuilder| 
+ContextBuilderDefinition = addClass(libDef, "libm2k::contexts::ContextBuilder", "MATLABName", "clib.libm2k.libm2k.contexts.ContextBuilder", ...
+    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder    Representation of C++ class libm2k::contexts::ContextBuilder"); % This description is shown as help to user. Modify it to appropriate description.
 
-%% C++ class constructor for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: libm2k::devices::ContextBuilder::ContextBuilder()
+%% C++ class constructor for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::ContextBuilder::ContextBuilder()
 ContextBuilderConstructor1Definition = addConstructor(ContextBuilderDefinition, ...
-    "libm2k::devices::ContextBuilder::ContextBuilder()", ...
-    "Description", "clib.libm2k.libm2k.devices.ContextBuilder    Constructor of C++ class libm2k::devices::ContextBuilder"); % This description is shown as help to user. Modify it to appropriate description.
+    "libm2k::contexts::ContextBuilder::ContextBuilder()", ...
+    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder    Constructor of C++ class libm2k::contexts::ContextBuilder"); % This description is shown as help to user. Modify it to appropriate description.
 validate(ContextBuilderConstructor1Definition);
 
-%% C++ class method |deviceOpen| for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: libm2k::devices::Context * libm2k::devices::ContextBuilder::deviceOpen(char const * input1)
-%deviceOpenDefinition = addMethod(ContextBuilderDefinition, ...
-%    "libm2k::devices::Context * libm2k::devices::ContextBuilder::deviceOpen(char const * input1)", ...
-%    "Description", "clib.libm2k.libm2k.devices.ContextBuilder.deviceOpen    Method of C++ class libm2k::devices::ContextBuilder::deviceOpen"); % This description is shown as help to user. Modify it to appropriate description.
-%defineArgument(deviceOpenDefinition, "input1", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
-%defineOutput(deviceOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.Context", <SHAPE>);
-%validate(deviceOpenDefinition);
+%% C++ class method |contextOpen| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::Context * libm2k::contexts::ContextBuilder::contextOpen(char const * input1)
+%contextOpenDefinition = addMethod(ContextBuilderDefinition, ...
+%    "libm2k::contexts::Context * libm2k::contexts::ContextBuilder::contextOpen(char const * input1)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.contextOpen    Method of C++ class libm2k::contexts::ContextBuilder::contextOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(contextOpenDefinition, "input1", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
+%defineOutput(contextOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.Context", <SHAPE>);
+%validate(contextOpenDefinition);
 
-%% C++ class method |deviceOpen| for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: libm2k::devices::Context * libm2k::devices::ContextBuilder::deviceOpen()
-deviceOpenDefinition = addMethod(ContextBuilderDefinition, ...
-   "libm2k::devices::Context * libm2k::devices::ContextBuilder::deviceOpen()", ...
-   "Description", "clib.libm2k.libm2k.devices.ContextBuilder.deviceOpen    Method of C++ class libm2k::devices::ContextBuilder::deviceOpen"); % This description is shown as help to user. Modify it to appropriate description.
-defineOutput(deviceOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.Context", 1);
-validate(deviceOpenDefinition);
+%% C++ class method |contextOpen| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::Context * libm2k::contexts::ContextBuilder::contextOpen(iio_context * input1,char const * input2)
+%contextOpenDefinition = addMethod(ContextBuilderDefinition, ...
+%    "libm2k::contexts::Context * libm2k::contexts::ContextBuilder::contextOpen(iio_context * input1,char const * input2)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.contextOpen    Method of C++ class libm2k::contexts::ContextBuilder::contextOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(contextOpenDefinition, "input1", "clib.libm2k.iio_context", "input", <SHAPE>);
+%defineArgument(contextOpenDefinition, "input2", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
+%defineOutput(contextOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.Context", <SHAPE>);
+%validate(contextOpenDefinition);
 
-%% C++ class method |m2kOpen| for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: libm2k::devices::M2k * libm2k::devices::ContextBuilder::m2kOpen(char const * input1)
+%% C++ class method |contextOpen| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::Context * libm2k::contexts::ContextBuilder::contextOpen()
+%contextOpenDefinition = addMethod(ContextBuilderDefinition, ...
+%    "libm2k::contexts::Context * libm2k::contexts::ContextBuilder::contextOpen()", ...
+%    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.contextOpen    Method of C++ class libm2k::contexts::ContextBuilder::contextOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineOutput(contextOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.Context", <SHAPE>);
+%validate(contextOpenDefinition);
+
+%% C++ class method |m2kOpen| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::ContextBuilder::m2kOpen(char const * input1)
 %m2kOpenDefinition = addMethod(ContextBuilderDefinition, ...
-%    "libm2k::devices::M2k * libm2k::devices::ContextBuilder::m2kOpen(char const * input1)", ...
-%    "Description", "clib.libm2k.libm2k.devices.ContextBuilder.m2kOpen    Method of C++ class libm2k::devices::ContextBuilder::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::contexts::M2k * libm2k::contexts::ContextBuilder::m2kOpen(char const * input1)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.m2kOpen    Method of C++ class libm2k::contexts::ContextBuilder::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
 %defineArgument(m2kOpenDefinition, "input1", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
-%defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.M2k", <SHAPE>);
+%defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", <SHAPE>);
 %validate(m2kOpenDefinition);
 
-%% C++ class method |m2kOpen| for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: libm2k::devices::M2k * libm2k::devices::ContextBuilder::m2kOpen()
+%% C++ class method |m2kOpen| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::ContextBuilder::m2kOpen(iio_context * input1,char const * input2)
+%m2kOpenDefinition = addMethod(ContextBuilderDefinition, ...
+%    "libm2k::contexts::M2k * libm2k::contexts::ContextBuilder::m2kOpen(iio_context * input1,char const * input2)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.m2kOpen    Method of C++ class libm2k::contexts::ContextBuilder::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(m2kOpenDefinition, "input1", "clib.libm2k.iio_context", "input", <SHAPE>);
+%defineArgument(m2kOpenDefinition, "input2", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
+%defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", <SHAPE>);
+%validate(m2kOpenDefinition);
+
+%% C++ class method |m2kOpen| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::ContextBuilder::m2kOpen()
 m2kOpenDefinition = addMethod(ContextBuilderDefinition, ...
-   "libm2k::devices::M2k * libm2k::devices::ContextBuilder::m2kOpen()", ...
-   "Description", "clib.libm2k.libm2k.devices.ContextBuilder.m2kOpen    Method of C++ class libm2k::devices::ContextBuilder::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
-defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.M2k", 1);
+   "libm2k::contexts::M2k * libm2k::contexts::ContextBuilder::m2kOpen()", ...
+   "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.m2kOpen    Method of C++ class libm2k::contexts::ContextBuilder::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", 1);
 validate(m2kOpenDefinition);
 
-%% C++ class method |deviceClose| for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: void libm2k::devices::ContextBuilder::deviceClose(libm2k::devices::Context * input1,bool deinit)
-%deviceCloseDefinition = addMethod(ContextBuilderDefinition, ...
-%    "void libm2k::devices::ContextBuilder::deviceClose(libm2k::devices::Context * input1,bool deinit)", ...
-%    "Description", "clib.libm2k.libm2k.devices.ContextBuilder.deviceClose    Method of C++ class libm2k::devices::ContextBuilder::deviceClose"); % This description is shown as help to user. Modify it to appropriate description.
-%defineArgument(deviceCloseDefinition, "input1", "clib.libm2k.libm2k.devices.Context", "input", <SHAPE>);
-%defineArgument(deviceCloseDefinition, "deinit", "logical");
-%validate(deviceCloseDefinition);
+%% C++ class method |contextClose| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: void libm2k::contexts::ContextBuilder::contextClose(libm2k::contexts::Context * input1,bool deinit)
+%contextCloseDefinition = addMethod(ContextBuilderDefinition, ...
+%    "void libm2k::contexts::ContextBuilder::contextClose(libm2k::contexts::Context * input1,bool deinit)", ...
+%    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.contextClose    Method of C++ class libm2k::contexts::ContextBuilder::contextClose"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(contextCloseDefinition, "input1", "clib.libm2k.libm2k.contexts.Context", "input", <SHAPE>);
+%defineArgument(contextCloseDefinition, "deinit", "logical");
+%validate(contextCloseDefinition);
 
-%% C++ class method |deviceCloseAll| for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: void libm2k::devices::ContextBuilder::deviceCloseAll()
-deviceCloseAllDefinition = addMethod(ContextBuilderDefinition, ...
-    "void libm2k::devices::ContextBuilder::deviceCloseAll()", ...
-    "Description", "clib.libm2k.libm2k.devices.ContextBuilder.deviceCloseAll    Method of C++ class libm2k::devices::ContextBuilder::deviceCloseAll"); % This description is shown as help to user. Modify it to appropriate description.
-validate(deviceCloseAllDefinition);
+%% C++ class method |contextCloseAll| for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: void libm2k::contexts::ContextBuilder::contextCloseAll()
+contextCloseAllDefinition = addMethod(ContextBuilderDefinition, ...
+    "void libm2k::contexts::ContextBuilder::contextCloseAll()", ...
+    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder.contextCloseAll    Method of C++ class libm2k::contexts::ContextBuilder::contextCloseAll"); % This description is shown as help to user. Modify it to appropriate description.
+validate(contextCloseAllDefinition);
 
-%% C++ class constructor for C++ class |libm2k::devices::ContextBuilder| 
-% C++ Signature: libm2k::devices::ContextBuilder::ContextBuilder(libm2k::devices::ContextBuilder const & input1)
+%% C++ class constructor for C++ class |libm2k::contexts::ContextBuilder| 
+% C++ Signature: libm2k::contexts::ContextBuilder::ContextBuilder(libm2k::contexts::ContextBuilder const & input1)
 ContextBuilderConstructor2Definition = addConstructor(ContextBuilderDefinition, ...
-    "libm2k::devices::ContextBuilder::ContextBuilder(libm2k::devices::ContextBuilder const & input1)", ...
-    "Description", "clib.libm2k.libm2k.devices.ContextBuilder    Constructor of C++ class libm2k::devices::ContextBuilder"); % This description is shown as help to user. Modify it to appropriate description.
-defineArgument(ContextBuilderConstructor2Definition, "input1", "clib.libm2k.libm2k.devices.ContextBuilder", "input");
+    "libm2k::contexts::ContextBuilder::ContextBuilder(libm2k::contexts::ContextBuilder const & input1)", ...
+    "Description", "clib.libm2k.libm2k.contexts.ContextBuilder    Constructor of C++ class libm2k::contexts::ContextBuilder"); % This description is shown as help to user. Modify it to appropriate description.
+defineArgument(ContextBuilderConstructor2Definition, "input1", "clib.libm2k.libm2k.contexts.ContextBuilder", "input");
 validate(ContextBuilderConstructor2Definition);
 
-%% C++ function |libm2k::devices::deviceOpen| with MATLAB name |clib.libm2k.libm2k.devices.deviceOpen|
-% C++ Signature: libm2k::devices::Context * libm2k::devices::deviceOpen()
-%deviceOpenDefinition = addFunction(libDef, ...
-%    "libm2k::devices::Context * libm2k::devices::deviceOpen()", ...
-%    "MATLABName", "clib.libm2k.libm2k.devices.deviceOpen", ...
-%    "Description", "clib.libm2k.libm2k.devices.deviceOpen    Representation of C++ function libm2k::devices::deviceOpen"); % This description is shown as help to user. Modify it to appropriate description.
-%defineOutput(deviceOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.Context", <SHAPE>);
-%validate(deviceOpenDefinition);
+%% C++ function |libm2k::contexts::contextOpen| with MATLAB name |clib.libm2k.libm2k.contexts.contextOpen|
+% C++ Signature: libm2k::contexts::Context * libm2k::contexts::contextOpen()
+%contextOpenDefinition = addFunction(libDef, ...
+%    "libm2k::contexts::Context * libm2k::contexts::contextOpen()", ...
+%    "MATLABName", "clib.libm2k.libm2k.contexts.contextOpen", ...
+%    "Description", "clib.libm2k.libm2k.contexts.contextOpen    Representation of C++ function libm2k::contexts::contextOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineOutput(contextOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.Context", <SHAPE>);
+%validate(contextOpenDefinition);
 
-%% C++ function |libm2k::devices::deviceOpen| with MATLAB name |clib.libm2k.libm2k.devices.deviceOpen|
-% C++ Signature: libm2k::devices::Context * libm2k::devices::deviceOpen(char const * uri)
-%deviceOpenDefinition = addFunction(libDef, ...
-%    "libm2k::devices::Context * libm2k::devices::deviceOpen(char const * uri)", ...
-%    "MATLABName", "clib.libm2k.libm2k.devices.deviceOpen", ...
-%    "Description", "clib.libm2k.libm2k.devices.deviceOpen    Representation of C++ function libm2k::devices::deviceOpen"); % This description is shown as help to user. Modify it to appropriate description.
-%defineArgument(deviceOpenDefinition, "uri", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
-%defineOutput(deviceOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.Context", <SHAPE>);
-%validate(deviceOpenDefinition);
+%% C++ function |libm2k::contexts::contextOpen| with MATLAB name |clib.libm2k.libm2k.contexts.contextOpen|
+% C++ Signature: libm2k::contexts::Context * libm2k::contexts::contextOpen(char const * uri)
+%contextOpenDefinition = addFunction(libDef, ...
+%    "libm2k::contexts::Context * libm2k::contexts::contextOpen(char const * uri)", ...
+%    "MATLABName", "clib.libm2k.libm2k.contexts.contextOpen", ...
+%    "Description", "clib.libm2k.libm2k.contexts.contextOpen    Representation of C++ function libm2k::contexts::contextOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(contextOpenDefinition, "uri", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
+%defineOutput(contextOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.Context", <SHAPE>);
+%validate(contextOpenDefinition);
 
-%% C++ function |libm2k::devices::m2kOpen| with MATLAB name |clib.libm2k.libm2k.devices.m2kOpen|
-% C++ Signature: libm2k::devices::M2k * libm2k::devices::m2kOpen(char const * uri)
+%% C++ function |libm2k::contexts::contextOpen| with MATLAB name |clib.libm2k.libm2k.contexts.contextOpen|
+% C++ Signature: libm2k::contexts::Context * libm2k::contexts::contextOpen(iio_context * ctx,char const * uri)
+%contextOpenDefinition = addFunction(libDef, ...
+%    "libm2k::contexts::Context * libm2k::contexts::contextOpen(iio_context * ctx,char const * uri)", ...
+%    "MATLABName", "clib.libm2k.libm2k.contexts.contextOpen", ...
+%    "Description", "clib.libm2k.libm2k.contexts.contextOpen    Representation of C++ function libm2k::contexts::contextOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(contextOpenDefinition, "ctx", "clib.libm2k.iio_context", "input", <SHAPE>);
+%defineArgument(contextOpenDefinition, "uri", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
+%defineOutput(contextOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.Context", <SHAPE>);
+%validate(contextOpenDefinition);
+
+%% C++ function |libm2k::contexts::m2kOpen| with MATLAB name |clib.libm2k.libm2k.contexts.m2kOpen|
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::m2kOpen(char const * uri)
+% m2kOpenDefinition = addFunction(libDef, ...
+%    "libm2k::contexts::M2k * libm2k::contexts::m2kOpen(char const * uri)", ...
+%    "MATLABName", "clib.libm2k.libm2k.contexts.m2kOpen", ...
+%    "Description", "clib.libm2k.libm2k.contexts.m2kOpen    Representation of C++ function libm2k::contexts::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+% defineArgument(m2kOpenDefinition, "uri", "char", "input"); % '<MLTYPE>' can be int8,string, or char
+% defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", 1);
+% validate(m2kOpenDefinition);
+
+%% C++ function |libm2k::contexts::m2kOpen| with MATLAB name |clib.libm2k.libm2k.contexts.m2kOpen|
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::m2kOpen(iio_context * ctx,char const * uri)
 %m2kOpenDefinition = addFunction(libDef, ...
-%    "libm2k::devices::M2k * libm2k::devices::m2kOpen(char const * uri)", ...
-%    "MATLABName", "clib.libm2k.libm2k.devices.m2kOpen", ...
-%    "Description", "clib.libm2k.libm2k.devices.m2kOpen    Representation of C++ function libm2k::devices::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%    "libm2k::contexts::M2k * libm2k::contexts::m2kOpen(iio_context * ctx,char const * uri)", ...
+%    "MATLABName", "clib.libm2k.libm2k.contexts.m2kOpen", ...
+%    "Description", "clib.libm2k.libm2k.contexts.m2kOpen    Representation of C++ function libm2k::contexts::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(m2kOpenDefinition, "ctx", "clib.libm2k.iio_context", "input", <SHAPE>);
 %defineArgument(m2kOpenDefinition, "uri", <MLTYPE>, "input", <SHAPE>); % '<MLTYPE>' can be int8,string, or char
-%defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.M2k", <SHAPE>);
+%defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", <SHAPE>);
 %validate(m2kOpenDefinition);
 
-%% C++ function |libm2k::devices::m2kOpen| with MATLAB name |clib.libm2k.libm2k.devices.m2kOpen|
-% C++ Signature: libm2k::devices::M2k * libm2k::devices::m2kOpen()
+%% C++ function |libm2k::contexts::m2kOpen| with MATLAB name |clib.libm2k.libm2k.contexts.m2kOpen|
+% C++ Signature: libm2k::contexts::M2k * libm2k::contexts::m2kOpen()
 m2kOpenDefinition = addFunction(libDef, ...
-   "libm2k::devices::M2k * libm2k::devices::m2kOpen()", ...
-   "MATLABName", "clib.libm2k.libm2k.devices.m2kOpen", ...
-   "Description", "clib.libm2k.libm2k.devices.m2kOpen    Representation of C++ function libm2k::devices::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
-defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.devices.M2k", 1);
+   "libm2k::contexts::M2k * libm2k::contexts::m2kOpen()", ...
+   "MATLABName", "clib.libm2k.libm2k.contexts.m2kOpen", ...
+   "Description", "clib.libm2k.libm2k.contexts.m2kOpen    Representation of C++ function libm2k::contexts::m2kOpen"); % This description is shown as help to user. Modify it to appropriate description.
+defineOutput(m2kOpenDefinition, "RetVal", "clib.libm2k.libm2k.contexts.M2k", 1);
 validate(m2kOpenDefinition);
 
-%% C++ function |libm2k::devices::deviceClose| with MATLAB name |clib.libm2k.libm2k.devices.deviceClose|
-% C++ Signature: void libm2k::devices::deviceClose(libm2k::devices::Context * ctx,bool deinit)
-%deviceCloseDefinition = addFunction(libDef, ...
-%    "void libm2k::devices::deviceClose(libm2k::devices::Context * ctx,bool deinit)", ...
-%    "MATLABName", "clib.libm2k.libm2k.devices.deviceClose", ...
-%    "Description", "clib.libm2k.libm2k.devices.deviceClose    Representation of C++ function libm2k::devices::deviceClose"); % This description is shown as help to user. Modify it to appropriate description.
-%defineArgument(deviceCloseDefinition, "ctx", "clib.libm2k.libm2k.devices.Context", "input", <SHAPE>);
-%defineArgument(deviceCloseDefinition, "deinit", "logical");
-%validate(deviceCloseDefinition);
+%% C++ function |libm2k::contexts::contextClose| with MATLAB name |clib.libm2k.libm2k.contexts.contextClose|
+% C++ Signature: void libm2k::contexts::contextClose(libm2k::contexts::Context * ctx,bool deinit)
+%contextCloseDefinition = addFunction(libDef, ...
+%    "void libm2k::contexts::contextClose(libm2k::contexts::Context * ctx,bool deinit)", ...
+%    "MATLABName", "clib.libm2k.libm2k.contexts.contextClose", ...
+%    "Description", "clib.libm2k.libm2k.contexts.contextClose    Representation of C++ function libm2k::contexts::contextClose"); % This description is shown as help to user. Modify it to appropriate description.
+%defineArgument(contextCloseDefinition, "ctx", "clib.libm2k.libm2k.contexts.Context", "input", <SHAPE>);
+%defineArgument(contextCloseDefinition, "deinit", "logical");
+%validate(contextCloseDefinition);
 
-%% C++ function |libm2k::devices::deviceCloseAll| with MATLAB name |clib.libm2k.libm2k.devices.deviceCloseAll|
-% C++ Signature: void libm2k::devices::deviceCloseAll()
-deviceCloseAllDefinition = addFunction(libDef, ...
-    "void libm2k::devices::deviceCloseAll()", ...
-    "MATLABName", "clib.libm2k.libm2k.devices.deviceCloseAll", ...
-    "Description", "clib.libm2k.libm2k.devices.deviceCloseAll    Representation of C++ function libm2k::devices::deviceCloseAll"); % This description is shown as help to user. Modify it to appropriate description.
-validate(deviceCloseAllDefinition);
+%% C++ function |libm2k::contexts::contextCloseAll| with MATLAB name |clib.libm2k.libm2k.contexts.contextCloseAll|
+% C++ Signature: void libm2k::contexts::contextCloseAll()
+contextCloseAllDefinition = addFunction(libDef, ...
+    "void libm2k::contexts::contextCloseAll()", ...
+    "MATLABName", "clib.libm2k.libm2k.contexts.contextCloseAll", ...
+    "Description", "clib.libm2k.libm2k.contexts.contextCloseAll    Representation of C++ function libm2k::contexts::contextCloseAll"); % This description is shown as help to user. Modify it to appropriate description.
+validate(contextCloseAllDefinition);
 
 %% Validate the library definition
 validate(libDef);
