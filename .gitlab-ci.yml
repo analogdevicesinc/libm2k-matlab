@@ -9,7 +9,7 @@ stages:
         name: "$CI_COMMIT_REF_NAME"
         paths:
             - libm2k
-            - *.mltbx
+            - ./*.mltbx
 
 package:linux:
     extends: .os_package
