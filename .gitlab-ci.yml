@@ -9,6 +9,7 @@ stages:
         name: "$CI_COMMIT_REF_NAME"
         paths:
             - libm2k
+            - *.mltbx
 
 package:linux:
     extends: .os_package
@@ -32,6 +33,7 @@ package:linux:
      - mv deps libm2k
      # Build MATLAB Bindings
      - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_pkg' 
+     - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_installer' 
 
 package:win64:
     extends: .os_package
@@ -48,3 +50,4 @@ package:win64:
      # Build MATLAB Bindings
      - cmd /C ""C:\Program Files\MATLAB\R2019a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_pkg_win64""
      - mv libm2k-win64 libm2k
+     - cmd /C ""C:\Program Files\MATLAB\R2019a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_installer""
