@@ -34,7 +34,8 @@ package:linux:
      # Build MATLAB Bindings
      - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_pkg' 
      - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_installer'
-     - ls *
+     - ls /tmp/libm2k-matlab/libm2k/*
+     - mv /tmp/libm2k-matlab/libm2k/libm2kInterface.so libm2k/
 
 package:win64:
     extends: .os_package
