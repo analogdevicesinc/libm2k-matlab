@@ -33,7 +33,8 @@ package:linux:
      - mv deps libm2k
      # Build MATLAB Bindings
      - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_pkg' 
-     - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_installer' 
+     - /usr/local/MATLAB/R2019a/bin/matlab -r 'build_installer'
+     - ls *
 
 package:win64:
     extends: .os_package
