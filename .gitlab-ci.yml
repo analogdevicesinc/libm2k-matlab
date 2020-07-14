@@ -41,13 +41,8 @@ package:win64:
      - win64
      - matlab
     script:
-     # Collect binaries and headers
-     - wget https://ci.appveyor.com/api/buildjobs/05v7nygc70sfxwar/artifacts/libm2k-win64.zip
-     - unzip libm2k-win64.zip -d .
-     - cd libm2k-win64/libm2k/
-     - curl -O https://raw.githubusercontent.com/analogdevicesinc/libiio/master/iio.h
-     - cd ../..
+     # Collect binaries and headers for libiio and build libm2k
+     - cmd /C deps.bat
      # Build MATLAB Bindings
-     - cmd /C ""C:\Program Files\MATLAB\R2019a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_pkg_win64""
-     - mv libm2k-win64 libm2k
-     - cmd /C ""C:\Program Files\MATLAB\R2019a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_installer""
+     - cmd /C ""C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "builder""
+     - cmd /C ""C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_installer""
