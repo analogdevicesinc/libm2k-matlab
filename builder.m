@@ -15,8 +15,11 @@ else
 end
 
 % Build library
-pkg = definelibm2k;
-build(pkg);
+try
+    pkg = definelibm2k;
+    build(pkg);
+catch
+end
 
 if ispc
     f = isfile(fullfile('libm2k','libm2kInterface.dll'));
