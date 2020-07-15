@@ -1,5 +1,5 @@
 # libm2k-matlab
-[![Generic badge](https://img.shields.io/badge/MATLAB-R2019a-BLUE.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/MATLAB-R2020a-BLUE.svg)](https://shields.io/)
 
 MATLAB binding for the [libm2k](https://github.com/analogdevicesinc/libm2k) interface library.
 
