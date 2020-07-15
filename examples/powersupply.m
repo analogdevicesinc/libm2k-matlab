@@ -7,8 +7,15 @@ back the value
 %}
 %% Setup
 import clib.libm2k.libm2k.*
-m2k = devices.m2kOpen();
+m2k = context.m2kOpen();
 
+if clibIsNull(m2k)
+    clib.libm2k.libm2k.context.contextCloseAll();
+    m2k = context.m2kOpen();
+end
+if isempty(m2k)
+    error('M2K device not found');
+end
 %% Calibrate
 m2k.calibrateADC();
 
@@ -22,6 +29,6 @@ ain = m2k.getAnalogIn();
 ain.enableChannel(0,true)
 disp(ain.getVoltage(0))
 
-devices.deviceCloseAll();
+context.contextCloseAll();
 
 clear m2k

@@ -2,7 +2,15 @@
 This example reads the analog voltage from channel 0 of the analog input
 %}
 %% Setup
-m2k = clib.libm2k.libm2k.devices.m2kOpen();
+m2k = clib.libm2k.libm2k.context.m2kOpen();
+
+if clibIsNull(m2k)
+    clib.libm2k.libm2k.context.contextCloseAll();
+    m2k = context.m2kOpen();
+end
+if isempty(m2k)
+    error('M2K device not found');
+end
 
 %% Setup analog in
 ain = m2k.getAnalogIn();
@@ -14,4 +22,5 @@ disp(voltage);
 d3 = ain.getSamplesInterleaved(1024);
 plot(d3)
 
+clib.libm2k.libm2k.context.contextCloseAll();
 clear m2k
