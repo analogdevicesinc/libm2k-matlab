@@ -1857,7 +1857,7 @@ getSamplesInterleavedDefinition = addMethod(M2kAnalogInDefinition, ...
    "Retrieve a specific number of samples from both channels", ...
    "DetailedDescription", "This content is from the external library documentation."); % Modify help description values as needed.
 defineArgument(getSamplesInterleavedDefinition, "nb_samples", "uint32", "Description", "nb_samples The number of samples that will be retrieved");
-defineOutput(getSamplesInterleavedDefinition, "RetVal", "clib.array.libm2k.Double", "nb_samples", "Description", "A pointer to the interleaved samples"); % '<MLTYPE>' can be clib.array.libm2k.Double, or double
+defineOutput(getSamplesInterleavedDefinition, "RetVal", "clib.array.libm2k.Double", "nb_samples * 2", "Description", "A pointer to the interleaved samples"); % '<MLTYPE>' can be clib.array.libm2k.Double, or double
 validate(getSamplesInterleavedDefinition);
 
 %% C++ class method |getSamplesRawInterleaved| for C++ class |libm2k::analog::M2kAnalogIn| 
@@ -1868,7 +1868,7 @@ getSamplesRawInterleavedDefinition = addMethod(M2kAnalogInDefinition, ...
    "Retrieve a specific number of raw samples from both channels", ...
    "DetailedDescription", "This content is from the external library documentation."); % Modify help description values as needed.
 defineArgument(getSamplesRawInterleavedDefinition, "nb_samples", "uint32", "Description", "nb_samples The number of samples that will be retrieved");
-defineOutput(getSamplesRawInterleavedDefinition, "RetVal", "clib.array.libm2k.Short", "nb_samples", "Description", "A pointer to the interleaved raw samples"); % '<MLTYPE>' can be clib.array.libm2k.Short, or int16
+defineOutput(getSamplesRawInterleavedDefinition, "RetVal", "clib.array.libm2k.Short", "nb_samples * 2", "Description", "A pointer to the interleaved raw samples"); % '<MLTYPE>' can be clib.array.libm2k.Short, or int16
 validate(getSamplesRawInterleavedDefinition);
 
 %% C++ class method |getVoltageRaw| for C++ class |libm2k::analog::M2kAnalogIn| 
