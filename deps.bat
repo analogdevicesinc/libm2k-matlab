@@ -12,7 +12,7 @@ cp -r libiio*/include/* deps/include/
 
 
 // libm2k
-git clone -b v0.2.1 https://github.com/analogdevicesinc/libm2k.git
+git clone -b matlab-new-api https://github.com/analogdevicesinc/libm2k.git
 cd libm2k
 mkdir build
 cd build

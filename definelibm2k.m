@@ -2142,20 +2142,20 @@ flushBufferDefinition = addMethod(M2kAnalogInDefinition, ...
     "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.flushBuffer    Method of C++ class libm2k::analog::M2kAnalogIn::flushBuffer"); % This description is shown as help to user. Modify it to appropriate description.
 validate(flushBufferDefinition);
 
-%% C++ class method |getSamplesInterleaved| for C++ class |libm2k::analog::M2kAnalogIn| 
-% C++ Signature: double const * libm2k::analog::M2kAnalogIn::getSamplesInterleaved(unsigned int nb_samples)
+%% C++ class method |getSamplesInterleaved_matlab| for C++ class |libm2k::analog::M2kAnalogIn|
+% C++ Signature: double const * libm2k::analog::M2kAnalogIn::getSamplesInterleaved_matlab(unsigned int nb_samples)
 getSamplesInterleavedDefinition = addMethod(M2kAnalogInDefinition, ...
-   "double const * libm2k::analog::M2kAnalogIn::getSamplesInterleaved(unsigned int nb_samples)", ...
-   "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getSamplesInterleaved    Method of C++ class libm2k::analog::M2kAnalogIn::getSamplesInterleaved"); % This description is shown as help to user. Modify it to appropriate description.
+   "double const * libm2k::analog::M2kAnalogIn::getSamplesInterleaved_matlab(unsigned int nb_samples)", ...
+   "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getSamplesInterleaved_matlab    Method of C++ class libm2k::analog::M2kAnalogIn::getSamplesInterleaved"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getSamplesInterleavedDefinition, "nb_samples", "uint32");
 defineOutput(getSamplesInterleavedDefinition, "RetVal", "double", "nb_samples");
 validate(getSamplesInterleavedDefinition);
 
-%% C++ class method |getSamplesRawInterleaved| for C++ class |libm2k::analog::M2kAnalogIn| 
-% C++ Signature: short const * libm2k::analog::M2kAnalogIn::getSamplesRawInterleaved(unsigned int nb_samples)
+%% C++ class method |getSamplesRawInterleaved_matlab| for C++ class |libm2k::analog::M2kAnalogIn|
+% C++ Signature: short const * libm2k::analog::M2kAnalogIn::getSamplesRawInterleaved_matlab(unsigned int nb_samples)
 getSamplesRawInterleavedDefinition = addMethod(M2kAnalogInDefinition, ...
-   "short const * libm2k::analog::M2kAnalogIn::getSamplesRawInterleaved(unsigned int nb_samples)", ...
-   "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getSamplesRawInterleaved    Method of C++ class libm2k::analog::M2kAnalogIn::getSamplesRawInterleaved"); % This description is shown as help to user. Modify it to appropriate description.
+   "short const * libm2k::analog::M2kAnalogIn::getSamplesRawInterleaved_matlab(unsigned int nb_samples)", ...
+   "Description", "clib.libm2k.libm2k.analog.M2kAnalogIn.getSamplesRawInterleaved_matlab    Method of C++ class libm2k::analog::M2kAnalogIn::getSamplesRawInterleaved"); % This description is shown as help to user. Modify it to appropriate description.
 defineArgument(getSamplesRawInterleavedDefinition, "nb_samples", "uint32");
 defineOutput(getSamplesRawInterleavedDefinition, "RetVal", "int16", "nb_samples");
 validate(getSamplesRawInterleavedDefinition);

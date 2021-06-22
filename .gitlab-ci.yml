@@ -17,7 +17,7 @@ package:linux:
      - linux
      - matlab
     script:
-     - git clone --branch matlab-deps https://github.com/analogdevicesinc/libm2k.git
+     - git clone --branch matlab-new-api https://github.com/analogdevicesinc/libm2k.git
      - cd libm2k
      - mkdir build && cd build
      - cmake .. -DENABLE_CSHARP=OFF -DENABLE_PYTHON=OFF
