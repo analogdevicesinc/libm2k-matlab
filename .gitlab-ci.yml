@@ -10,6 +10,7 @@ stages:
         paths:
             - libm2k
             - ./*.mltbx
+            - ./*.log
 
 package:linux:
     extends: .os_package
@@ -44,5 +45,5 @@ package:win64:
      # Collect binaries and headers for libiio and build libm2k
      - cmd /C deps.bat
      # Build MATLAB Bindings
-     - cmd /C ""C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "builder""
-     - cmd /C ""C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "build_installer""
+     - cmd /C '"C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "diary builder.log; builder"'
+     - cmd /C '"C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "diary installer.log; build_installer"'
