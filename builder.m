@@ -27,4 +27,6 @@ else
     f = isfile(fullfile('libm2k','libm2kInterface.so'));
 end
 
-exit(~f);
+fprintf('File found: %d\n',f);
+
+%exit(~f);
