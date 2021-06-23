@@ -1,6 +1,9 @@
 stages:
   - package
 
+variables:
+  MATLAB_WIN:"C:\Program Files\MATLAB\R2020a\bin\matlab"
+
 # Templates
 .os_package:
     stage: package
@@ -45,5 +48,5 @@ package:win64:
      # Collect binaries and headers for libiio and build libm2k
      - cmd /C deps.bat
      # Build MATLAB Bindings
-     - cmd /C ""C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "diary builder.log; builder"" & echo 0
-     - cmd /C ""C:\Program Files\MATLAB\R2020a\bin\matlab" -wait -nodisplay -nodesktop -nosplash -r "diary installer.log; build_installer"" & echo 0
+     - cmd /C ""$MATLAB_WIN" -wait -nodisplay -nodesktop -nosplash -r "diary builder.log; builder; pause(10); build_installer""
+     #- cmd /C ""$MATLAB_WIN" -wait -nodisplay -nodesktop -nosplash -r "diary installer.log; build_installer"" & echo 0
