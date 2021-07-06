@@ -1,5 +1,11 @@
 clear all; %clc;
 
+try
+    delete definelibm2k.m
+    delete definelibm2k.mlx
+catch me
+end
+
 %% MATLAB API Builder
 % This script will build the basic template file for the MATLAB bindings
 % however since the library processor isn't perfect manual modifications
@@ -74,6 +80,8 @@ clibgen.generateLibraryDefinition(headers,...
     'PackageName', myPkg,...
     'Verbose',true)
 delete definelibm2k.mlx
+
+movefile('definelibm2k.m', 'definelibm2k_win64.m');
 
 %% Build library once manually updated
 % pkg = definelibm2k;
