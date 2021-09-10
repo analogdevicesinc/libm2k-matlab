@@ -76,7 +76,7 @@ aout.pushInterleaved(buffer,2)
 
 %% Collect analog data
 for k=1:10
-    data = ain.getSamplesInterleaved(1000);
+    data = ain.getSamplesInterleaved_matlab(1000);
     data = data.double;
     subplot(2,1,1);plot(data(1:2:end));
     subplot(2,1,2);plot(data(2:2:end));

@@ -16,16 +16,22 @@ end
 if isempty(m2k)
     error('M2K device not found');
 end
-%% Calibrate
-m2k.calibrateADC();
-
-% Will turn on the power supply if we need smth to measure
-ps = m2k.getPowerSupply();
-ps.enableChannel(0,true);
-ps.pushChannel(0,1.7);
 
 % Setup analog in
 ain = m2k.getAnalogIn();
+ain.reset();
+
+% Will turn on the power supply if we need smth to measure
+ps = m2k.getPowerSupply();
+
+%% Calibrate
+m2k.calibrateADC();
+m2k.calibrateDAC();
+
+ps.enableChannel(0,true);
+ps.pushChannel(0,1.7);
+
+
 ain.enableChannel(0,true)
 disp(ain.getVoltage(0))
 
