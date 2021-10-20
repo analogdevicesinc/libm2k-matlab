@@ -14,12 +14,14 @@ end
 
 %% Setup analog in
 ain = m2k.getAnalogIn();
+ain.reset();
+
 ain.enableChannel(0,true);
 voltage = ain.getVoltage(0);
 disp(voltage);
 
 %% Get more data
-d3 = ain.getSamplesInterleaved(1024);
+d3 = ain.getSamplesInterleaved_matlab(1024);
 plot(d3)
 
 clib.libm2k.libm2k.context.contextCloseAll();

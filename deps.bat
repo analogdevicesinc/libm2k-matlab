@@ -1,22 +1,22 @@
 set root=%cd%
 
 // libiio
-mkdir deps
-wget https://github.com/analogdevicesinc/libiio/releases/download/v0.21/libiio-0.21.g565bf68-Windows.zip -O libiio-win.zip
+mkdir -p deps
+wget https://github.com/analogdevicesinc/libiio/releases/download/v0.23/Windows-VS-16-2019-x64.zip -O libiio-win.zip
 unzip libiio-win.zip
-cp -r libiio*/MS64/libiio.dll deps/
-cp -r libiio*/MS64/libiio.exp deps/
-cp -r libiio*/MS64/libiio.lib deps/
-mkdir deps\include
-cp -r libiio*/include/* deps/include/
+cp -r libiio*/libiio.dll deps/
+cp -r libiio*/libiio.exp deps/
+cp -r libiio*/libiio.lib deps/
+mkdir -p deps\include
+cp -r libiio*/iio.h deps/include/
 
 
 // libm2k
-git clone -b v0.2.1 https://github.com/analogdevicesinc/libm2k.git
+git clone -b v0.5.0 https://github.com/analogdevicesinc/libm2k.git
 cd libm2k
-mkdir build
+mkdir -p build
 cd build
-cmake -DENABLE_CSHARP=OFF -DENABLE_PYTHON=OFF -DIIO_LIBRARIES:FILEPATH="%root%\deps\libiio.lib" -DIIO_INCLUDE_DIRS:PATH="%root%\deps\include" -DCMAKE_CONFIGURATION_TYPES=RELEASE -G "Visual Studio 15 Win64" ..
+cmake -DENABLE_CSHARP=OFF -DENABLE_PYTHON=OFF -DIIO_LIBRARIES:FILEPATH="%root%\deps\libiio.lib" -DIIO_INCLUDE_DIRS:PATH="%root%\deps\include" -DCMAKE_CONFIGURATION_TYPES=RELEASE -G "Visual Studio 16 2019" ..
 
 cmake --build . --config Release
 cd ../..

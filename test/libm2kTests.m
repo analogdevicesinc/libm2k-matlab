@@ -16,14 +16,20 @@ classdef libm2kTests < matlab.unittest.TestCase
     
     methods(Test)
         function checkConnectivity(~)
-            m2k = clib.libm2k.libm2k.devices.m2kOpen();
+            m2k = clib.libm2k.libm2k.context.m2kOpen();
             if isempty(m2k)
                 error('No M2K found');
             end
         end
         function testDigital(~)
-            m2k = clib.libm2k.libm2k.devices.m2kOpen();
+            m2k = clib.libm2k.libm2k.context.m2kOpen();
+            if isempty(m2k)
+                error('No M2K found');
+            end
             dig = m2k.getDigital();
+            if isempty(dig)
+                error('No M2K digital found');
+            end
             dig.setSampleRateIn(100000);
             dig.setSampleRateOut(100000);
         end
