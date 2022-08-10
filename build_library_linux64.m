@@ -52,7 +52,7 @@ h1 = fullfile(hppPath,'analog','enums.hpp'); h = [{h1},h(:)'];
 % h1 = fullfile(hppPath,'utils','utils.hpp'); h = [{h1},h(:)'];
 % h1 = fullfile(hppPath,'utils','enums.hpp'); h = [{h1},h(:)'];
 
-h1 = fullfile(hppPath,'m2kcalibration.hpp'); h = [{h1},h(:)'];
+%h1 = fullfile(hppPath,'m2kcalibration.hpp'); h = [{h1},h(:)'];
 h1 = fullfile(hppPath,'m2khardwaretrigger.hpp'); h = [{h1},h(:)'];
 h1 = fullfile(hppPath,'contextbuilder.hpp'); h = [{h1},h(:)'];
 h1 = fullfile(hppPath,'m2k.hpp'); h = [{h1},h(:)'];
@@ -66,16 +66,16 @@ h1 = fullfile(hppPath,'enums.hpp'); h = [{h1},h(:)'];
 headers = h;
 
 %% Build interface file
-clibgen.generateLibraryDefinition(headers,...
-    'IncludePath', includepath,...
-    'Libraries', libs,...
-    'PackageName', myPkg,...
-    'Verbose',true)
-delete definelibm2k.mlx
+%clibgen.generateLibraryDefinition(headers,...
+%    'IncludePath', includepath,...
+%    'Libraries', libs,...
+%    'PackageName', myPkg,...
+%    'Verbose',true)
+%delete definelibm2k.mlx
 
 %% Build library once manually updated
-% pkg = definelibm2k;
-% build(pkg);
+pkg = definelibm2k;
+build(pkg);
 
 
 
