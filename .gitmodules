@@ -1,0 +1,3 @@
+[submodule "libm2k"]
+	path = libm2k
+	url = https://github.com/analogdevicesinc/libm2k
