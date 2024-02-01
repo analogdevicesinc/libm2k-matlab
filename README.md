@@ -1,11 +1,9 @@
 # libm2k-matlab
 !!! MATLAB bindings are now part of the libm2k library - https://github.com/analogdevicesinc/libm2k/tree/master/bindings/matlab
 
-!!! You can find the latest release on the libm2k release page - https://github.com/analogdevicesinc/libm2k/releases/tag/v0.7.0
+!!! You can find the latest release on the libm2k release page - https://github.com/analogdevicesinc/libm2k/releases/latest
 
-
-
-[![Generic badge](https://img.shields.io/badge/MATLAB-R2020a-BLUE.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/MATLAB-R2023a-BLUE.svg)](https://shields.io/)
 
 
 MATLAB binding for the [libm2k](https://github.com/analogdevicesinc/libm2k) interface library.
@@ -14,12 +12,6 @@ Documentation is available on [wiki.analog.com](https://wiki.analog.com/universi
 
 ## Releases
 
-Always install the latest release for your MATLAB version from the [releases page](https://github.com/analogdevicesinc/libm2k-matlab/releases/latest).
+Always install the latest release for your MATLAB version from the libm2k releases page.
 
-### Latest Development Builds
-
-|  Operating System | GitHub master status  | MATLAB Release |  Installer Package  |
-|:-------:|:---------------------:|:-------:|:-------------------:|
-| Windows 10 | [![pipeline status](https://gitlab.com/tfcollins/libm2k-matlab/badges/master/pipeline.svg)](https://gitlab.com/tfcollins/libm2k-matlab/commits/master) | R2020a | <a href="https://gitlab.com/tfcollins/libm2k-matlab/-/jobs/artifacts/master/download?job=package:win64"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="40" /></a>|
-| Linux | [![pipeline status](https://gitlab.com/tfcollins/libm2k-matlab/badges/master/pipeline.svg)](https://gitlab.com/tfcollins/libm2k-matlab/commits/master) | R2020a | Must be built from source |
 
