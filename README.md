@@ -3,7 +3,7 @@
 
 !!! You can find the latest release on the libm2k release page - https://github.com/analogdevicesinc/libm2k/releases/latest
 
-[![Generic badge](https://img.shields.io/badge/MATLAB-R2023a-BLUE.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/MATLAB-R2024b-BLUE.svg)](https://shields.io/)
 
 
 MATLAB binding for the [libm2k](https://github.com/analogdevicesinc/libm2k) interface library.
